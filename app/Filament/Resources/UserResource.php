@@ -7,6 +7,8 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Pages\Page;
+use Filament\Resources\Pages\CreateRecord;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -23,7 +25,24 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name') // making the name field.
+                    ->required(),
+
+                Forms\Components\TextInput::make('email') // making the email field.
+                    ->label('Email Address')
+                    ->email()
+                    ->maxLength(255)
+                    ->unique(ignoreRecord: true)
+                    ->required(),
+                
+                Forms\Components\DatePicker::make('email_verified_at') // making the email_verified_at field.
+                    ->label('Email Verified At')
+                    ->default(now()),
+                
+                Forms\Components\TextInput::make('password') // making the password field.
+                    ->password()
+                    ->dehydrated(fn ($state) => filled($state))
+                    ->required(fn (Page $livewire): bool => $livewire instanceof CreateRecord), // to make this field required only in create user page.
             ]);
     }
 
