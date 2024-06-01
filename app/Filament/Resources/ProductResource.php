@@ -147,7 +147,12 @@ class ProductResource extends Resource
  
             ])
             ->filters([
-                //
+                SelectFilter::make('category') // to filter the products by the categories.
+                    ->relationship('category', 'name'), // 'category' is the name of the relation in the Product model, 'name' is to show only the name of the categories to select one of them.
+
+                SelectFilter::make('brand') // to filter the products by the brands.
+                    ->relationship('brand', 'name'), // 'brand' is the name of the relation in the Product model, 'name' is to show only the name of the brands to select one of them.
+
             ])
             ->actions([
                 //
