@@ -110,7 +110,41 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('name')
+                    ->searchable(),
+
+                TextColumn::make('category.name') // get the name of the category by the relation name.
+                    ->sortable(),
+
+                TextColumn::make('brand.name') // get the name of the brand by the relation name.
+                    ->sortable(),
+
+                TextColumn::make('price')
+                    ->money('USD')
+                    ->sortable(),
+
+                IconColumn::make('is_featured')
+                    ->boolean(),
+
+                IconColumn::make('on_sale')
+                    ->boolean(),
+
+                IconColumn::make('in_stock')
+                    ->boolean(),
+
+                IconColumn::make('is_active')
+                    ->boolean(),
+
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true), // to hide this filed from the table and show it when needed.
+
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true), // to hide this filed from the table and show it when needed.
+ 
             ])
             ->filters([
                 //
