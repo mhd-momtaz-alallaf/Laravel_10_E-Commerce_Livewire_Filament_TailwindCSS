@@ -155,7 +155,11 @@ class ProductResource extends Resource
 
             ])
             ->actions([
-                //
+                Tables\Actions\ActionGroup::make([ // To combine all the actions in one group.
+                    Tables\Actions\ViewAction::make(), // Enable View Action.
+                    Tables\Actions\EditAction::make(), // Enable Edit Action.
+                    Tables\Actions\DeleteAction::make(), // Enable Delete Action.
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
