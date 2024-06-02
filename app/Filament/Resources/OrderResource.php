@@ -8,6 +8,8 @@ use App\Models\Order;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Hidden;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
@@ -22,6 +24,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Number;
 
 class OrderResource extends Resource
 {
@@ -105,7 +108,7 @@ class OrderResource extends Resource
                     ])->columns(2), // to align each two fields together as 2 columns. 
 
                     Section::make('Order Items')->schema([ // to associate the order with the orderItems Model
-                        Repeater::make('items') // the relation name in the Order Model.
+                        Repeater::make('items') //the Repeater is for select multiple products, the 'items' is the relation name in the Order Model.
                             ->relationship() // to trigger the relationship between the order and orderItems.
                             ->schema([
                                 Select::make('product_id')
@@ -142,10 +145,29 @@ class OrderResource extends Resource
                                 TextInput::make('total_amount')
                                     ->numeric()
                                     ->required()
+                                    ->disabled()
                                     ->dehydrated()
                                     ->columnSpan(3),
                             ])->columns(12),
 
+                            Placeholder::make('grand_total_placeholder') // to show the grand total price of all the OrderItems.
+                                ->label('Grand Total')
+                                ->content(function (Set $set, Get $get)
+                                {
+                                    $total = 0;
+                                    if(! $repeaters = $get('items')){ // if there is no items in the repeater/s.
+                                        return $total; // return total 0.
+                                    }
+                                    foreach ($repeaters as $key => $repeater){
+                                        $total += $get("items.{$key}.total_amount");
+                                    }
+
+                                    $set('grand_total', $total); // to set the grand_total field value and save it to the database.
+                                    return Number::currency($total,'USD'); // return the total value in 'USD' currency form.
+                                }),
+
+                            Hidden::make('grand_total') // this is a hidden field and it will not showing to the users, and to just preparing the 'grand_total' value to change in the 'grand_total_placeholder'.
+                                ->default(0),
                     ]),
                 ])->columnSpanFull(), // to take the whole screen width.
             ]);
