@@ -255,6 +255,11 @@ class OrderResource extends Resource
         return static::getModel()::count();
     }
 
+    public static function getNavigationBadgeColor(): ?string // This function is for changing color of orders count depending on the number of orders.
+    {
+        return static::getModel()::count() > 10 ? 'danger' : 'success';
+    }
+
     public static function getPages(): array
     {
         return [
