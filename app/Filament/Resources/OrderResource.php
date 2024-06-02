@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
+use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Repeater;
@@ -14,6 +15,8 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\ToggleButtons;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -111,25 +114,35 @@ class OrderResource extends Resource
                                     ->preload()
                                     ->required()
                                     ->distinct() // to list only the distinct products.
-                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems()
-                                    ->columnSpan(4),
+                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems() // we can't select the same product if its already selected.
+                                    ->columnSpan(4)
+                                    ->reactive()
+                                    ->afterStateUpdated(fn ($state, Set $set) => 
+                                        $set('unit_amount', Product::find($state) ?->price ?? 0)) // to set the unit_price automatically after selecting any product, so for the selected product we will find it and get the price or 0. 
+                                    ->afterStateUpdated(fn ($state, Set $set) => 
+                                        $set('total_amount', Product::find($state) ?->price ?? 0)), // to set the total_price automatically after selecting the quantity of the product, we will set it on two parts, the first part we will set the total_amount for the quantity 1 without any changing, the second part will be handled in the TextInput quantity.
 
                                 TextInput::make('quantity')
                                     ->numeric()
                                     ->required()
                                     ->default(1)
                                     ->minValue(1)
-                                    ->columnSpan(2),
+                                    ->columnSpan(2)
+                                    ->reactive()
+                                    ->afterStateUpdated(fn ($state, Set $set, Get $get) => 
+                                        $set('total_amount', $state * $get('unit_amount'))), // setting the total_amount automatically after the quantity is changed by multiply the unit_amount with the $state(quantity).
 
                                 TextInput::make('unit_amount')
                                     ->numeric()
                                     ->required()
                                     ->disabled()
+                                    ->dehydrated() // to make this field able to be inserted in the database after the disabled() method.
                                     ->columnSpan(3),
 
                                 TextInput::make('total_amount')
                                     ->numeric()
                                     ->required()
+                                    ->dehydrated()
                                     ->columnSpan(3),
                             ])->columns(12),
 
