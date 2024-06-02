@@ -230,8 +230,11 @@ class OrderResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ActionGroup::make([ // To combine all the actions in one group.
+                    Tables\Actions\ViewAction::make(), // Enable View Action.
+                    Tables\Actions\EditAction::make(), // Enable Edit Action.
+                    Tables\Actions\DeleteAction::make(), // Enable Delete Action.
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
