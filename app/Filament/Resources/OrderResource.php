@@ -21,6 +21,8 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SelectColumn;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -177,7 +179,52 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('user.name') // get the name of the user by the relation name.
+                    ->label('Customer')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('grand_total') 
+                    ->numeric()
+                    ->sortable()
+                    ->money('USD'),
+
+                TextColumn::make('payment_method') 
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('payment_status') 
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('currency') 
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('shipping_method') 
+                    ->sortable()
+                    ->searchable(),
+
+                SelectColumn::make('status') // this select is for change the status of the order directly without going to the edit order form.
+                    ->options([
+                        'new' => 'New', // on the left database field, on the right the text that will show in the table.
+                        'processing' => 'Processing',
+                        'shipped' => 'Shipped',
+                        'delivered' => 'Delivered',
+                        'canceled' => 'Canceled',
+                    ])
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true), // to hide this filed from the table and show it when needed.
+
+                TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true), // to hide this filed from the table and show it when needed.
             ])
             ->filters([
                 //
