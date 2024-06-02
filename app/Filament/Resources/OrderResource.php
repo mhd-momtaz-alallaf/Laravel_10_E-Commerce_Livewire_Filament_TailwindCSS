@@ -100,6 +100,40 @@ class OrderResource extends Resource
                         Textarea::make('notes')
                             ->columnSpanFull(), // to take the whole screen width.
                     ])->columns(2), // to align each two fields together as 2 columns. 
+
+                    Section::make('Order Items')->schema([ // to associate the order with the orderItems Model
+                        Repeater::make('items') // the relation name in the Order Model.
+                            ->relationship() // to trigger the relationship between the order and orderItems.
+                            ->schema([
+                                Select::make('product_id')
+                                    ->relationship('product', 'name')  // This will attach the product to an orderItem, 'product' is the name of the relation in the OrderItem model, 'name' is to show only the name of the products to select one of them.
+                                    ->searchable()
+                                    ->preload()
+                                    ->required()
+                                    ->distinct() // to list only the distinct products.
+                                    ->disableOptionsWhenSelectedInSiblingRepeaterItems()
+                                    ->columnSpan(4),
+
+                                TextInput::make('quantity')
+                                    ->numeric()
+                                    ->required()
+                                    ->default(1)
+                                    ->minValue(1)
+                                    ->columnSpan(2),
+
+                                TextInput::make('unit_amount')
+                                    ->numeric()
+                                    ->required()
+                                    ->disabled()
+                                    ->columnSpan(3),
+
+                                TextInput::make('total_amount')
+                                    ->numeric()
+                                    ->required()
+                                    ->columnSpan(3),
+                            ])->columns(12),
+
+                    ]),
                 ])->columnSpanFull(), // to take the whole screen width.
             ]);
     }
