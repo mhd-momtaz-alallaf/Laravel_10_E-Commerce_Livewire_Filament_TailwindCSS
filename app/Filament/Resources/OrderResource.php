@@ -250,6 +250,11 @@ class OrderResource extends Resource
         ];
     }
 
+    public static function getNavigationBadge(): ?string // This function is for displaying the number of orders on the right of the orders navigation.
+    {
+        return static::getModel()::count();
+    }
+
     public static function getPages(): array
     {
         return [
