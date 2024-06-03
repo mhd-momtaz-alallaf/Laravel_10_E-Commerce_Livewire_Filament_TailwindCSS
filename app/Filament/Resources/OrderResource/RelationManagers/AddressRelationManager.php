@@ -10,7 +10,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class AddressRelationManager extends RelationManager
+class AddressRelationManager extends RelationManager // this AddressRelationManager class is created by the command "php artisan make:filament-relation-manager OrderResource address street_address", 'OrderResource' is the owner of the relationship, 'address' is the relation name in the Order model, 'street_address' is the column of the Address model that will used to identify the address of the order.
 {
     protected static string $relationship = 'address';
 
