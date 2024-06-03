@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\OrderResource\RelationManagers;
 
 use Filament\Forms;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -18,9 +20,35 @@ class AddressRelationManager extends RelationManager // this AddressRelationMana
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('street_address')
+                TextInput::make('first_name')
                     ->required()
                     ->maxLength(255),
+
+                TextInput::make('last_name')
+                    ->required()
+                    ->maxLength(255),
+
+                TextInput::make('phone')
+                    ->required()
+                    ->tel()
+                    ->maxLength(20),
+
+                TextInput::make('city')
+                    ->required()
+                    ->maxLength(255),
+
+                TextInput::make('state')
+                    ->required()
+                    ->maxLength(255),
+
+                TextInput::make('zip_code')
+                    ->required()
+                    ->numeric()
+                    ->maxLength(10),
+                    
+                Textarea::make('street_address')
+                    ->required()
+                    ->columnSpanFull(),
             ]);
     }
 
