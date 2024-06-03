@@ -8,6 +8,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -57,7 +58,18 @@ class AddressRelationManager extends RelationManager // this AddressRelationMana
         return $table
             ->recordTitleAttribute('street_address')
             ->columns([
-                Tables\Columns\TextColumn::make('street_address'),
+                TextColumn::make('fullname') // 'fullname' is an accessor in the Address model for Get the user's full name by combining first and last name.
+                    ->label('Full Name'),
+
+                TextColumn::make('phone'),
+
+                TextColumn::make('city'),
+
+                TextColumn::make('state'),
+
+                TextColumn::make('zip_code'),
+
+                TextColumn::make('street_address'),
             ])
             ->filters([
                 //
