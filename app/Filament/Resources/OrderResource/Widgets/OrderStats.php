@@ -12,6 +12,8 @@ class OrderStats extends BaseWidget
     {
         return [
             Stat::make('New Orders', Order::query()->where('status','new')->count()), // This Widget is for getting the new orders count and show it as a card in the orders list page.
+
+            Stat::make('Processing Orders', Order::query()->where('status','processing')->count()), // This Widget is for getting the processing orders count and show it as a card in the orders list page.
         ];
     }
 }
