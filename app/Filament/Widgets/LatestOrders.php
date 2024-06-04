@@ -14,6 +14,8 @@ class LatestOrders extends BaseWidget // this Widget is to show the latest 5 ord
 {
     protected int | string | array $columnSpan = 'full'; // This property allows the table to take the full width of the screen.
 
+    protected static ?int $sort = 2; // This will this widget is the second widget in the dashboard.
+
     public function table(Table $table): Table
     {
         return $table
