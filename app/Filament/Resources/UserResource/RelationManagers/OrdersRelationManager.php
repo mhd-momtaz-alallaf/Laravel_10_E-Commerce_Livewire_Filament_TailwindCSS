@@ -2,10 +2,13 @@
 
 namespace App\Filament\Resources\UserResource\RelationManagers;
 
+use App\Filament\Resources\OrderResource;
+use App\Models\Order;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -73,7 +76,11 @@ class OrdersRelationManager extends RelationManager // // this OrdersRelationMan
                 //Tables\Actions\CreateAction::make(), // the CreateAction is hided because the orders relation is only for viewing the orders of a specific user.
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Action::make('View Order') // Creating a Custom Action to View the detailed Order of the User.
+                    ->url(fn (Order $order): string => OrderResource::getUrl('view', ['record' => $order])) // getting the OrderResource 'view' url of the passed $order.
+                    ->color('info') // changing the color to info.
+                    ->icon('heroicon-o-eye'), // changing the icon to 'eye'.
+
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
