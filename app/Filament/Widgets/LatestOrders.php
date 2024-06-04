@@ -3,7 +3,9 @@
 namespace App\Filament\Widgets;
 
 use App\Filament\Resources\OrderResource;
+use App\Models\Order;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
@@ -59,6 +61,11 @@ class LatestOrders extends BaseWidget // this Widget is to show the latest 5 ord
                 TextColumn::make('created_at')
                     ->label('Ordering Date')
                     ->dateTime(),
+            ])
+            ->actions([
+                Action::make('View Order') // Creating a Custom Action to View the detailed Order of the User.
+                    ->url(fn (Order $order): string => OrderResource::getUrl('view', ['record' => $order])) // getting the OrderResource 'view' url of the passed $order.
+                    ->icon('heroicon-o-eye'), // changing the icon to 'eye'.
             ]);
     }
 }
