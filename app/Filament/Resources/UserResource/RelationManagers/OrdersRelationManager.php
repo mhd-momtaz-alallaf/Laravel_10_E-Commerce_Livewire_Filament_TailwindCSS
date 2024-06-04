@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -27,7 +28,43 @@ class OrdersRelationManager extends RelationManager // // this OrdersRelationMan
         return $table
             ->recordTitleAttribute('id')
             ->columns([
-                Tables\Columns\TextColumn::make('id'),
+                TextColumn::make('id')
+                    ->label('Order Id')
+                    ->searchable(),
+
+                TextColumn::make('grand_total')
+                    ->money('USD'),
+
+                TextColumn::make('status')
+                    ->badge() // this will make the status showing as badge form.
+                    ->color(fn (string $state):string => match($state){
+                        'new' => 'info', // on the left database field, on the right the wanted filament colors.
+                        'processing'=> 'warning',
+                        'shipped'=> 'success',
+                        'delivered'=> 'success',
+                        'canceled'=> 'danger',
+                    })
+                    ->icon(fn (string $state):string => match($state){
+                        'new' => 'heroicon-m-sparkles', // on the left database field, on the right the wanted icons.
+                        'processing' => 'heroicon-m-arrow-path',
+                        'shipped' => 'heroicon-m-truck',
+                        'delivered' => 'heroicon-m-check-badge',
+                        'canceled' => 'heroicon-m-x-circle',
+                    })
+                    ->sortable(),
+
+                TextColumn::make('payment_method')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('payment_status')
+                    ->badge() // this will make the payment_status showing as badge form.
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('created_at')
+                    ->label('Ordering Date')
+                    ->dateTime(),
             ])
             ->filters([
                 //
