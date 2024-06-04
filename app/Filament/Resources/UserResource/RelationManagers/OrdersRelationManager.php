@@ -18,9 +18,7 @@ class OrdersRelationManager extends RelationManager // // this OrdersRelationMan
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('id')
-                    ->required()
-                    ->maxLength(255),
+                // the form body is deleted because the orders relation is only for viewing the orders of a specific user, orders creating is available in OrderResource Only.
             ]);
     }
 
@@ -35,7 +33,7 @@ class OrdersRelationManager extends RelationManager // // this OrdersRelationMan
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                //Tables\Actions\CreateAction::make(), // the CreateAction is hided because the orders relation is only for viewing the orders of a specific user.
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
