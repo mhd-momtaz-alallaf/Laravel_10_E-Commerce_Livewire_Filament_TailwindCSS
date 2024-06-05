@@ -9,9 +9,14 @@
         @livewireStyles {{-- Including the livewire Styles --}}
     </head>
     <body class="bg-slate-200 dark:bg-slate-700"> {{-- Adding some of tailwindcss styles --}}
+        @livewire('partials.navbar') {{-- Including partials.navbar component --}}
+
         <main>
             {{ $slot }}
         </main>
+
+        @livewire('partials.footer') {{-- Including partials.footer component --}}
+
         @livewireScripts {{-- Including the livewire Scripts --}}
     </body>
 </html>
