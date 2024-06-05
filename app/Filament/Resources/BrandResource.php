@@ -27,6 +27,8 @@ class BrandResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-computer-desktop'; // modify the icon to be 'computer-desktop' icon.
 
+    protected static ?string $recordTitleAttribute = 'name'; // this property will enable the global search of brands by there name from the dashboard.
+
     public static function form(Form $form): Form
     {
         return $form

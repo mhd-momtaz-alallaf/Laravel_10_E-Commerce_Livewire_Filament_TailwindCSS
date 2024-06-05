@@ -97,4 +97,9 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
+
+    public static function getGloballySearchableAttributes(): array // this function will enable the global search of users by multiple attributes (name, email) from the dashboard.
+    {
+        return ['name', 'email'];
+    }
 }
