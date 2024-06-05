@@ -32,6 +32,8 @@ class ProductResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-squares-2x2'; // modify the icon to be 'squares-2x2' icon.
 
+    protected static ?int $navigationSort = 4; // This property will make the Products Section is the Fourth element in the admin navigation menu.
+
     public static function form(Form $form): Form
     {
         return $form

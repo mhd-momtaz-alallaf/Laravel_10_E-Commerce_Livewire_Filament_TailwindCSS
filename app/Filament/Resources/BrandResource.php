@@ -29,6 +29,8 @@ class BrandResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name'; // this property will enable the global search of brands by there name from the dashboard.
 
+    protected static ?int $navigationSort = 2; // This property will make the Brands Section is the Second element in the admin navigation menu.
+
     public static function form(Form $form): Form
     {
         return $form

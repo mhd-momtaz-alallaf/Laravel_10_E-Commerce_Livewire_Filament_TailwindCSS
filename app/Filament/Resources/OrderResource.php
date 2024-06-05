@@ -35,6 +35,8 @@ class OrderResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-shopping-bag'; // modify the icon to be 'shopping-bag' icon.
 
+    protected static ?int $navigationSort = 5; // This property will make the Users Section is the Fifth element in the admin navigation menu.
+
     public static function form(Form $form): Form
     {
         return $form

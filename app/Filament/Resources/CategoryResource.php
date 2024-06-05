@@ -27,6 +27,8 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-tag'; // modify the icon to be 'tag' icon.
 
+    protected static ?int $navigationSort = 3; // This property will make the Categories Section is the Third element in the admin navigation menu.
+
     public static function form(Form $form): Form
     {
         return $form
