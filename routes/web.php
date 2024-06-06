@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Auth\LoginPage;
 use App\Livewire\CartPage;
 use App\Livewire\CategoriesPage;
 use App\Livewire\CheckoutPage;
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomePage::class);
+
+Route::get('/login', LoginPage::class);
 
 Route::get('/categories', CategoriesPage::class);
 
