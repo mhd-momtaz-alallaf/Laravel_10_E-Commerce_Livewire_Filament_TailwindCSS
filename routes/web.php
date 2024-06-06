@@ -12,6 +12,7 @@ use App\Livewire\MyOrderDetailsPage;
 use App\Livewire\MyOrdersPage;
 use App\Livewire\ProductDetailsPage;
 use App\Livewire\ProductsPage;
+use App\Livewire\SuccessPage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,8 +26,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', HomePage::class);
-
 Route::get('/login', LoginPage::class);
 
 Route::get('/register', RegisterPage::class);
@@ -34,6 +33,8 @@ Route::get('/register', RegisterPage::class);
 Route::get('/forget-password', ForgetPasswordPage::class);
 
 Route::get('/reset-password', ResetPasswordPage::class);
+
+Route::get('/', HomePage::class);
 
 Route::get('/categories', CategoriesPage::class);
 
@@ -48,3 +49,5 @@ Route::get('/checkout', CheckoutPage::class);
 Route::get('/my-orders', MyOrdersPage::class);
 
 Route::get('/my-orders/{order}', MyOrderDetailsPage::class);
+
+Route::get('/success', SuccessPage::class);
