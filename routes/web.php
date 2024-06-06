@@ -4,6 +4,7 @@ use App\Livewire\CartPage;
 use App\Livewire\CategoriesPage;
 use App\Livewire\CheckoutPage;
 use App\Livewire\HomePage;
+use App\Livewire\MyOrdersPage;
 use App\Livewire\ProductDetailsPage;
 use App\Livewire\ProductsPage;
 use Illuminate\Support\Facades\Route;
@@ -30,3 +31,5 @@ Route::get('/products/{product}', ProductDetailsPage::class);
 Route::get('/cart', CartPage::class);
 
 Route::get('/checkout', CheckoutPage::class);
+
+Route::get('/my-orders', MyOrdersPage::class);
