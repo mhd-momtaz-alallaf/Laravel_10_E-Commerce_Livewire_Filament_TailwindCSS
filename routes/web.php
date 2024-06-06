@@ -4,6 +4,7 @@ use App\Livewire\Auth\ForgetPasswordPage;
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\Auth\RegisterPage;
 use App\Livewire\Auth\ResetPasswordPage;
+use App\Livewire\CancelPage;
 use App\Livewire\CartPage;
 use App\Livewire\CategoriesPage;
 use App\Livewire\CheckoutPage;
@@ -51,3 +52,5 @@ Route::get('/my-orders', MyOrdersPage::class);
 Route::get('/my-orders/{order}', MyOrderDetailsPage::class);
 
 Route::get('/success', SuccessPage::class);
+
+Route::get('/cancel', CancelPage::class);
