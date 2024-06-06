@@ -3,6 +3,7 @@
 use App\Livewire\Auth\ForgetPasswordPage;
 use App\Livewire\Auth\LoginPage;
 use App\Livewire\Auth\RegisterPage;
+use App\Livewire\Auth\ResetPasswordPage;
 use App\Livewire\CartPage;
 use App\Livewire\CategoriesPage;
 use App\Livewire\CheckoutPage;
@@ -31,6 +32,8 @@ Route::get('/login', LoginPage::class);
 Route::get('/register', RegisterPage::class);
 
 Route::get('/forget-password', ForgetPasswordPage::class);
+
+Route::get('/reset-password', ResetPasswordPage::class);
 
 Route::get('/categories', CategoriesPage::class);
 
