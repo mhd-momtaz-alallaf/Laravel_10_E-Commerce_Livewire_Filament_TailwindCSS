@@ -10,9 +10,10 @@
 
                         <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
                             Don't have an account yet?
-                            <a class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/register">
+                            <a wire:navigate href={{ route('register') }} class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                                 Sign up here
                             </a>
+                            {{-- Using the wire:navigate is makes the pages loads in background, so the page will opens very fast without waiting to load like usual --}}
                         </p>
                     </div>
         
