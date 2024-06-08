@@ -1,9 +1,9 @@
 <div>
-    <x-home.get-started></x-home.get-started> {{-- Including get-started section --}}
+    <x-home.get-started></x-home.get-started> {{-- Including get-started blade section --}}
 
-    <x-home.brands></x-home.brands> {{-- Including brands section --}}
+    @livewire('home.brands') {{-- Including 'home.brands' livewire component --}}
+    
+    @livewire('home.categories') {{-- Including 'home.brands' livewire component --}}
 
-    <x-home.categories></x-home.categories> {{-- Including categories section --}}
-
-    <x-home.customer-reviews></x-home.customer-reviews> {{-- Including customer-reviews section --}}
+    <x-home.customer-reviews></x-home.customer-reviews> {{-- Including customer-reviews blade section --}}
 </div>
