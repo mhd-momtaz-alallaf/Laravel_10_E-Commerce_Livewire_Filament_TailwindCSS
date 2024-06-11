@@ -3,39 +3,24 @@
         <div class="px-4 py-4 mx-auto max-w-7xl lg:py-6 md:px-6">
             <div class="flex flex-wrap mb-24 -mx-3">
                 <div class="w-full pr-2 lg:w-1/4 lg:block">
+                    {{-- Categories Filtering section --}}
                     <div class="p-4 mb-5 bg-white border border-gray-200 dark:border-gray-900 dark:bg-gray-900">
                         <h2 class="text-2xl font-bold dark:text-gray-400"> Categories</h2>
 
                         <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
 
+                        {{-- categories List --}}
                         <ul>
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-400 ">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg">Smartphones</span>
-                                </label>
-                            </li>
-
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-400 ">
-                                    <input type="checkbox" class="w-4 h-4 mr-2 ">
-                                    <span class="text-lg">Laptops</span>
-                                </label>
-                            </li>
-
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-400">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg">Smartwatches</span>
-                                </label>
-                            </li>
-
-                            <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-400">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
-                                    <span class="text-lg">Television</span>
-                                </label>
-                            </li>
+                            @foreach ($categories as $category)
+                                <li class="mb-4" wire:key="{{$category->id}}">
+                                    <label for="{{$category->slug}}" class="flex items-center dark:text-gray-400 ">
+                                        {{-- Category Checkbox --}}
+                                        <input type="checkbox" id="{{$category->slug}}" value="{{$category->id}}" class="w-4 h-4 mr-2">
+                                        {{-- Category Name --}}
+                                        <span class="text-lg">{{$category->name}}</span>
+                                    </label>
+                                </li>
+                            @endforeach
                         </ul>
                     </div>
                     
