@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>{{ $title ?? 'E-Commerce' }}</title>
-        @vite(['resources/css/app.css', 'resources/js/app.js']) {{-- Including the app.css and app.js --}}
+        @vite(['resources/css/app.css']) {{-- Including the app.css --}}
         @livewireStyles {{-- Including the livewire Styles --}}
     </head>
     <body class="bg-slate-200 dark:bg-slate-700"> {{-- Adding some of tailwindcss styles --}}
@@ -18,5 +18,6 @@
         @livewire('partials.footer') {{-- Including partials.footer component --}}
 
         @livewireScripts {{-- Including the livewire Scripts --}}
+        @vite(['resources/js/app.js']) {{-- Including the app.js --}}
     </body>
 </html>
