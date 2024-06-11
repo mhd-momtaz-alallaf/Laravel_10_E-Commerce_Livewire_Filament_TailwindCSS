@@ -48,7 +48,7 @@ Route::get('/categories', CategoriesPage::class)
 Route::get('/products', ProductsPage::class)
     ->name('products');
 
-Route::get('/products/{product}', ProductDetailsPage::class)
+Route::get('/products/{product:slug}', ProductDetailsPage::class) // Showing the Product Details by the product slug instead of product id.
     ->name('product-details');
 
 Route::get('/cart', CartPage::class)

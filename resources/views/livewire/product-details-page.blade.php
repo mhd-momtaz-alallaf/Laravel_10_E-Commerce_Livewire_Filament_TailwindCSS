@@ -2,24 +2,22 @@
     <section class="overflow-hidden bg-white py-11 font-poppins dark:bg-gray-800">
         <div class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
             <div class="flex flex-wrap -mx-4">
-                <div class="w-full mb-8 md:w-1/2 md:mb-0" x-data="{ mainImage: 'https://m.media-amazon.com/images/I/71f5Eu5lJSL._SX679_.jpg' }">
+                {{-- Product Images Section --}}
+                <div class="w-full mb-8 md:w-1/2 md:mb-0" x-data="{ mainImage: '{{ url('storage'. ltrim($product->images[0], '/')) }}'}"> {{-- The Main Image Url, . ltrim($product->images[0], '/') will remove any any leading slashes (/image_path) from the $image path, ensuring there are no double slashes in the resulting URL --}}
                     <div class="sticky top-0 z-50 overflow-hidden ">
                         <div class="relative mb-6 lg:mb-10 lg:h-2/4 ">
                             <img x-bind:src="mainImage" alt="" class="object-cover w-full lg:h-full ">
                         </div>
 
+                        {{-- Product Images --}}
                         <div class="flex-wrap hidden md:flex ">
-                            <div class="w-1/2 p-2 sm:w-1/4" x-on:click="mainImage='https://m.media-amazon.com/images/I/71f5Eu5lJSL._SX679_.jpg'">
-                                <img src="https://m.media-amazon.com/images/I/71f5Eu5lJSL._SX679_.jpg" alt="" class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
-                            </div>
-            
-                            <div class="w-1/2 p-2 sm:w-1/4" x-on:click="mainImage='https://m.media-amazon.com/images/I/61XPhYGQOQL._SX679_.jpg'">
-                                <img src="https://m.media-amazon.com/images/I/61XPhYGQOQL._SX679_.jpg" alt="" class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
-                            </div>
-            
-                            <div class="w-1/2 p-2 sm:w-1/4" x-on:click="mainImage='https://m.media-amazon.com/images/I/81v5JNjZ4-L._SX679_.jpg'">
-                                <img src="https://m.media-amazon.com/images/I/81v5JNjZ4-L._SX679_.jpg" alt="" class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
-                            </div>
+                            @foreach ($product->images as $image)
+                                {{-- Changing the Main Image on clicking --}}
+                                <div class="w-1/2 p-2 sm:w-1/4" x-on:click="mainImage='{{ url('storage/' . ltrim($image, '/')) }}'">
+                                    {{-- . ltrim($image, '/') will remove any any leading slashes (/image_path) from the $image path, ensuring there are no double slashes in the resulting URL --}}
+                                    <img src="{{ url('storage/' . ltrim($image, '/')) }}" alt="{{$product->name}}" class="object-cover w-full lg:h-20 cursor-pointer hover:border hover:border-blue-500">
+                                </div>
+                            @endforeach
                         </div>
 
                         <div class="px-6 pb-6 mt-6 border-t border-gray-300 dark:border-gray-400 ">

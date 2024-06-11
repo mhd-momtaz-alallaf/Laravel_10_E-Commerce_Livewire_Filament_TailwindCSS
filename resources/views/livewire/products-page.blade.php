@@ -23,7 +23,7 @@
                             @endforeach
                         </ul>
                     </div>
-                    
+
                     {{-- Brands Filtering section --}}
                     <div class="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                         <h2 class="text-2xl font-bold dark:text-gray-400">Brand</h2>
@@ -102,7 +102,7 @@
                                 <div class="border border-gray-300 dark:border-gray-700">
                                     <div class="relative bg-gray-200">
                                         {{-- Navigating to the product details page --}}
-                                        <a href="/products/{{$product->slug}}" class="">
+                                        <a href={{route('product-details', $product)}} class="">
                                             {{-- Showing only the first image of the product from the $product->images array --}}
                                             <img src="{{url('storage', $product->images[0])}}" alt="{{$product->name}}" class="object-cover w-full h-56 mx-auto ">
                                         </a>
