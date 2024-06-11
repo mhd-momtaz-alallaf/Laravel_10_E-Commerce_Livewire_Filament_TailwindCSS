@@ -3,7 +3,7 @@
         <div class="max-w-6xl px-4 py-4 mx-auto lg:py-8 md:px-6">
             <div class="flex flex-wrap -mx-4">
                 {{-- Product Images Section --}}
-                <div class="w-full mb-8 md:w-1/2 md:mb-0" x-data="{ mainImage: '{{ url('storage'. ltrim($product->images[0], '/')) }}'}"> {{-- The Main Image Url, . ltrim($product->images[0], '/') will remove any any leading slashes (/image_path) from the $image path, ensuring there are no double slashes in the resulting URL --}}
+                <div class="w-full mb-8 md:w-1/2 md:mb-0" x-data="{ mainImage: '{{ url('storage/'. ltrim($product->images[0], '/')) }}'}"> {{-- The Main Image Url, . ltrim($product->images[0], '/') will remove any any leading slashes (/image_path) from the $image path, ensuring there are no double slashes in the resulting URL --}}
                     <div class="sticky top-0 z-50 overflow-hidden ">
                         <div class="relative mb-6 lg:mb-10 lg:h-2/4 ">
                             <img x-bind:src="mainImage" alt="" class="object-cover w-full lg:h-full ">
@@ -41,19 +41,22 @@
                 <div class="w-full px-4 md:w-1/2 ">
                     <div class="lg:pl-20">
                         <div class="mb-8 ">
+                            {{-- Product Name --}}
                             <h2 class="max-w-xl mb-6 text-2xl font-bold dark:text-gray-400 md:text-4xl">
-                                Macbook Pro M130c90
+                                {{ $product->name }}
                             </h2>
 
+                            {{-- Product Price --}}
                             <p class="inline-block mb-6 text-4xl font-bold text-gray-700 dark:text-gray-400 ">
-                                <span>$1500.99</span>
-                                <span class="text-base font-normal text-gray-500 line-through dark:text-gray-400">$1800.99</span>
+                                <span>
+                                    {{ Number::currency($product->price, 'USD') }}
+                                </span>
+                                {{-- <span class="text-base font-normal text-gray-500 line-through dark:text-gray-400">$1800.99</span> --}} {{-- commenting discount price --}}
                             </p>
 
+                            {{-- Product Description --}}
                             <p class="max-w-md text-gray-700 dark:text-gray-400">
-                                Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
-                                Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet Lorem ispum dor amet
-                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Soluta eligendi esse laboriosam ex hic magni inventore dolores numquam, veniam totam ratione iusto explicabo accusamus, sit alias, architecto voluptate officiis quaerat?
+                                {{ $product->description }}   
                             </p>
                         </div>
 
