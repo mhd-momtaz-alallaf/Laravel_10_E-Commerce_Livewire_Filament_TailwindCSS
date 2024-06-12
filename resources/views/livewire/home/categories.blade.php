@@ -28,13 +28,16 @@
         <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6">
             {{-- Listing the categories items dynamically from the database, the $categories collection has been passed from the Home.Categories Component Class --}}
             @foreach ($categories as $category)
+                {{-- The Category Products page Link --}}
                 <a class="group flex flex-col bg-white border shadow-sm rounded-xl hover:shadow-md transition dark:bg-slate-900 dark:border-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                     href="/products?selected_categories[0]={{ $category->id }}" wire:key="{{$category->id}}">
                     <div class="p-4 md:p-5">
                         <div class="flex justify-between items-center">
                             <div class="flex items-center">
-                                <img class="h-[2.375rem] w-[2.375rem] rounded-full" src="{{url('storage', $category->image)}}" alt="{{$category->name}}">
+                                {{-- Category Image Path --}} {{-- . ltrim($category->image, '/') will remove any any leading slashes (/image_path) from the $category->image path, ensuring there are no double slashes in the resulting URL --}}
+                                <img class="h-[2.375rem] w-[2.375rem] rounded-full" src="{{url('storage/' . ltrim($category->image, '/') )}}" alt="{{$category->name}}">
                                 
+                                {{-- Category Name --}}
                                 <div class="ms-3">
                                     <h3 class="group-hover:text-blue-600 font-semibold text-gray-800 dark:group-hover:text-gray-400 dark:text-gray-200">
                                         {{$category->name}}

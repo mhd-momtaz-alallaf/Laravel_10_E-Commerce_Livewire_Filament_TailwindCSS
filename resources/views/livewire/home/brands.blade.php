@@ -27,9 +27,13 @@
             {{-- Listing the Brands items dynamically from the database, the $brands collection has been passed from the Brands Component Class --}}
             @foreach ($brands as $brand)
                 <div class="bg-white rounded-lg shadow-md dark:bg-gray-800" wire:key="{{$brand->id}}">
-                    <a href="#" class="">
-                        <img src="{{url('storage', $brand->image)}}" alt="{{$brand->name}}" class="object-cover w-full h-64 rounded-t-lg">
+                    {{-- Brand Products page link --}} 
+                    <a href="/products?selected_brands[0]={{ $brand->id }}" class="">
+                        {{-- . ltrim($brand->image, '/') will remove any any leading slashes (/image_path) from the $brand->image path, ensuring there are no double slashes in the resulting URL --}}
+                        <img src="{{url('storage/' . ltrim($brand->image, '/') )}}}" alt="{{$brand->name}}" class="object-cover w-full h-64 rounded-t-lg">
                     </a>
+
+                    {{-- Brand Name --}}
                     <div class="p-5 text-center">
                         <a href="" class="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-300">
                             {{$brand->name}}
