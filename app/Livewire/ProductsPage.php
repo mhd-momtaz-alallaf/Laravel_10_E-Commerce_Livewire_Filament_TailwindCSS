@@ -22,6 +22,9 @@ class ProductsPage extends Component
     #[Url] // getting the passed ($selected_brands) value from the view and passing it to the url route attributes.
     public $selected_brands = []; // to get the selected brands (Brands filtering values) from the products_page view.
 
+    #[Url] // getting the passed ($featured) value from the view and passing it to the url route attributes.
+    public $featured = []; // to get the selected 'featured products' status (Status filtering values) from the products_page view.
+   
     public function render()
     {
         $productsQuery = Product::query()->where('is_active', 1); // Getting all active Products form the database.
@@ -32,6 +35,10 @@ class ProductsPage extends Component
 
         if(!empty($this->selected_brands)){ // getting the filtering by brands, we will add more condition to the productsQuery.
             $productsQuery->whereIn('brand_id', $this->selected_brands); // getting only the products of the passed brand_id/s.
+        }
+
+        if($this->featured){ // getting the filtering by 'Featured Products' product status, we will add more condition to the productsQuery.
+            $productsQuery->where('is_featured', 1); // getting only the products that have the is_featured status of 1.
         }
 
         $brands = Brand::where('is_active', 1)->get(['id', 'name', 'slug']); // Getting all active Brands form the database.
