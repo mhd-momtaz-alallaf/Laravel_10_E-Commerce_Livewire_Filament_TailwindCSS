@@ -30,7 +30,7 @@
                     {{-- Brand Products page link --}} 
                     <a href="/products?selected_brands[0]={{ $brand->id }}" class="">
                         {{-- . ltrim($brand->image, '/') will remove any any leading slashes (/image_path) from the $brand->image path, ensuring there are no double slashes in the resulting URL --}}
-                        <img src="{{url('storage/' . ltrim($brand->image, '/') )}}}" alt="{{$brand->name}}" class="object-cover w-full h-64 rounded-t-lg">
+                        <img src="{{url('storage/' . ltrim($brand->image, '/') )}}" alt="{{$brand->name}}" class="object-cover w-full h-64 rounded-t-lg">
                     </a>
 
                     {{-- Brand Name --}}
