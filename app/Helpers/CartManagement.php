@@ -45,6 +45,19 @@ class CartManagement{ // This helper will Provide:
         }
     }
     // remove item from the cart
+    public static function removeCartItem($product_id){ // this function will remove the Product($product_id) from the cart.
+        $cart_items = self::GetCartItemsFromCookie(); // getting the cart items from the cookie.
+
+        foreach ($cart_items as $key => $item){
+            if($item['product_id'] == $product_id){ // finding the product inside the $cart_items.
+                unset($cart_items[$key]); // removing the product from the cart.
+            }
+        }
+
+        self::addCartItemsToCookie($cart_items); // Re adding the new $cart_items to the cookie after the update.
+
+        return $cart_items;
+    }
 
     // add cart items to the Cookie
     public static function addCartItemsToCookie($cart_items){
