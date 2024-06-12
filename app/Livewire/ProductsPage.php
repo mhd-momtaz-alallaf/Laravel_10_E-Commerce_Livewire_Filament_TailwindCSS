@@ -28,6 +28,9 @@ class ProductsPage extends Component
     #[Url] // getting the passed ($on_sale) value from the view and passing it to the url route attributes.
     public $on_sale = []; // to get the selected 'On Sale' status value (Status filtering values) from the products_page view.
    
+    #[Url] // getting the passed ($price_range) value from the view and passing it to the url route attributes.
+    public $max_price_range = 50000; // to get the max_price_range value (Price filtering values) from the products_page view, default value is 50000.
+
     public function render()
     {
         $productsQuery = Product::query()->where('is_active', 1); // Getting all active Products form the database.
@@ -46,6 +49,10 @@ class ProductsPage extends Component
 
         if($this->on_sale){ // getting the filtering by 'On Sale' product status, we will add more condition to the productsQuery.
             $productsQuery->where('on_sale', 1); // getting only the products that have the on_sale status of 1.
+        }
+
+        if($this->max_price_range){ // getting the filtering by 'Price', we will add more condition to the productsQuery.
+            $productsQuery->whereBetween('price', [0, $this->max_price_range]); // getting only the products that have price from 0 to (max_price_range as max price). 
         }
 
         $brands = Brand::where('is_active', 1)->get(['id', 'name', 'slug']); // Getting all active Brands form the database.

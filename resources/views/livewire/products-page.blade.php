@@ -46,7 +46,7 @@
                         </ul>
                     </div>
 
-                    {{-- Product Status section --}}
+                    {{-- Product Status Filtering section --}}
                     <div class="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
                         <h2 class="text-2xl font-bold dark:text-gray-400">Product Status</h2>
 
@@ -77,17 +77,27 @@
                         </ul>
                     </div>
         
+                    {{-- Price Range Filtering section --}}
                     <div class="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
-                        <h2 class="text-2xl font-bold dark:text-gray-400">Price</h2>
+                        <h2 class="text-2xl font-bold dark:text-gray-400"> Maximum Price</h2>
 
                         <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
 
                         <div>
-                            <input type="range" class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="500000" value="100000" step="100000">
+                            {{-- Selected Price --}}
+                            <div class="font-semibold">
+                                {{ Number::currency($max_price_range, 'USD') }}
+                            </div>
+
+                            {{-- The Range selector bar --}} {{-- wire:model.live="price_range" will listen to the price selector and it will send the value to the ProductPage Component --}}
+                            <input type="range" wire:model.live="max_price_range" class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="50000" value="50000" step="1000">
 
                             <div class="flex justify-between ">
-                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; 1000</span>
-                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; 500000</span>
+                                {{-- Min --}}
+                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; {{ Number::currency(1000, 'USD') }}</span>
+
+                                {{-- Max --}}
+                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; {{ Number::currency(50000, 'USD') }}</span>
                             </div>
                         </div>
                     </div>
