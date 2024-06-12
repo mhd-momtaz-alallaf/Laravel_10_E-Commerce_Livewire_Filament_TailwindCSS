@@ -16,6 +16,7 @@
                                     <label for="{{$category->slug}}" class="flex items-center dark:text-gray-400 ">
                                         {{-- Category Checkbox --}} {{-- wire:model.live="selected_categories" will listen to the chekbox and it will send the selected categories to the ProductPage Component --}}
                                         <input type="checkbox" wire:model.live="selected_categories" id="{{$category->slug}}" value="{{$category->id}}" class="w-4 h-4 mr-2">
+                                        
                                         {{-- Category Name --}}
                                         <span class="text-lg dark:text-gray-400">{{$category->name}}</span>
                                     </label>
@@ -34,8 +35,8 @@
                             @foreach ($brands as $brand)
                                 <li class="mb-4" wire:key="{{$brand->id}}">
                                     <label for="" class="flex items-center dark:text-gray-300">
-                                        {{-- Brand Checkbox --}}
-                                        <input type="checkbox" id="{{$brand->slug}}" value="{{$brand->id}}" class="w-4 h-4 mr-2">
+                                        {{-- Brand Checkbox --}} {{-- wire:model.live="selected_brands" will listen to the chekbox and it will send the selected brands to the ProductPage Component --}}
+                                        <input type="checkbox" wire:model.live="selected_brands" id="{{$brand->slug}}" value="{{$brand->id}}" class="w-4 h-4 mr-2">
                                         
                                         {{-- Brand Name --}}
                                         <span class="text-lg dark:text-gray-400">{{$brand->name}}</span>
