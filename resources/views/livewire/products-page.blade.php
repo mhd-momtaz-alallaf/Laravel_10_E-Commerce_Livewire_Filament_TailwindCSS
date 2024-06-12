@@ -14,8 +14,8 @@
                             @foreach ($categories as $category)
                                 <li class="mb-4" wire:key="{{$category->id}}">
                                     <label for="{{$category->slug}}" class="flex items-center dark:text-gray-400 ">
-                                        {{-- Category Checkbox --}}
-                                        <input type="checkbox" id="{{$category->slug}}" value="{{$category->id}}" class="w-4 h-4 mr-2">
+                                        {{-- Category Checkbox --}} {{-- wire:model.live="selected_categories" will listen to the chekbox and it will send the selected categories to the ProductPage Component --}}
+                                        <input type="checkbox" wire:model.live="selected_categories" id="{{$category->slug}}" value="{{$category->id}}" class="w-4 h-4 mr-2">
                                         {{-- Category Name --}}
                                         <span class="text-lg dark:text-gray-400">{{$category->name}}</span>
                                     </label>
@@ -29,7 +29,6 @@
                         <h2 class="text-2xl font-bold dark:text-gray-400">Brand</h2>
 
                         <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
-
                         {{-- Brands List --}}
                         <ul>
                             @foreach ($brands as $brand)
@@ -37,6 +36,7 @@
                                     <label for="" class="flex items-center dark:text-gray-300">
                                         {{-- Brand Checkbox --}}
                                         <input type="checkbox" id="{{$brand->slug}}" value="{{$brand->id}}" class="w-4 h-4 mr-2">
+                                        
                                         {{-- Brand Name --}}
                                         <span class="text-lg dark:text-gray-400">{{$brand->name}}</span>
                                     </label>
@@ -103,8 +103,8 @@
                                     <div class="relative bg-gray-200">
                                         {{-- Navigating to the product details page --}}
                                         <a href={{route('product-details', $product)}} class="">
-                                            {{-- Showing only the first image of the product from the $product->images array --}}
-                                            <img src="{{url('storage', $product->images[0])}}" alt="{{$product->name}}" class="object-cover w-full h-56 mx-auto ">
+                                            {{-- Showing only the first image of the product from the $product->images array --}} {{-- . ltrim($product->images[0], '/') will remove any any leading slashes (/image_path) from the $images path, ensuring there are no double slashes in the resulting URL --}}
+                                            <img src="{{ url('storage/'. ltrim($product->images[0], '/')) }}" alt="{{$product->name}}" class="object-cover w-full h-56 mx-auto ">
                                         </a>
                                     </div>
                                     
