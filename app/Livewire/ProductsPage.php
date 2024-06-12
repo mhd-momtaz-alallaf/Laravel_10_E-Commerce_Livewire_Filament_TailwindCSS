@@ -30,6 +30,9 @@ class ProductsPage extends Component
    
     #[Url] // getting the passed ($price_range) value from the view and passing it to the url route attributes.
     public $max_price_range = 50000; // to get the max_price_range value (Price filtering values) from the products_page view, default value is 50000.
+   
+    #[Url] // getting the passed ($sort_by) value from the view and passing it to the url route attributes.
+    public $sort_by = 'latest'; // to get the sort_by value (sorting values) from the products_page view, default value is 'latest'.
 
     public function render()
     {
@@ -53,6 +56,14 @@ class ProductsPage extends Component
 
         if($this->max_price_range){ // getting the filtering by 'Price', we will add more condition to the productsQuery.
             $productsQuery->whereBetween('price', [0, $this->max_price_range]); // getting only the products that have price from 0 to (max_price_range as max price). 
+        }
+
+        if($this->sort_by == 'latest'){ 
+            $productsQuery->latest(); // sorting by 'latest'.
+        }
+
+        if($this->sort_by == 'price'){
+            $productsQuery->orderBy('price'); // sorting by 'price'.
         }
 
         $brands = Brand::where('is_active', 1)->get(['id', 'name', 'slug']); // Getting all active Brands form the database.
