@@ -115,4 +115,7 @@ class CartManagement{ // This helper will Provide:
     }
 
     // calculate cart items grand total
+    public static function calculateCartItemsGrandTotal($cart_items){
+        return array_sum(array_column($cart_items, 'total_amount')); // calculating the sum of the 'total_amount' field of each item in the $cart_items array.
+    }
 }
