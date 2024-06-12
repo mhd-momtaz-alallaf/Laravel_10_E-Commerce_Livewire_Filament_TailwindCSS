@@ -15,11 +15,20 @@ class CartManagement{ // This helper will Provide:
     }
 
     // clean cart items from the Cookie
-    public static function CleanCartItemsFromCookie(){
+    public static function ClearCartItemsFromCookie(){
         Cookie::queue(Cookie::forget('cart_items')); // Forget the Cookie named 'cart_items'.
     }
 
     // get all cart items from the Cookie
+    public static function GetCartItemsFromCookie(){
+        $cart_items = json_decode(Cookie::get('cart_items', true)); // converting the cart_items from json format to a collection.
+
+        if(!$cart_items){
+            $cart_items = [];
+        }
+
+        return $cart_items;
+    }
 
     // increment items Quantity
 
