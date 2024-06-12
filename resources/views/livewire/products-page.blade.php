@@ -58,14 +58,19 @@
                                 <label for="featured" class="flex items-center dark:text-gray-300">
                                     {{-- Featured Products Checkbox --}} {{-- wire:model.live="featured" will listen to the chekbox and it will send the value to the ProductPage Component --}}
                                     <input type="checkbox" wire:model.live="featured" id="featured" value="1" class="w-4 h-4 mr-2">
+                                    
                                     {{-- Status Name --}}
                                     <span class="text-lg dark:text-gray-400">Featured Products</span>
                                 </label>
                             </li>
 
+                            {{-- On Sale Status --}}
                             <li class="mb-4">
-                                <label for="" class="flex items-center dark:text-gray-300">
-                                    <input type="checkbox" class="w-4 h-4 mr-2">
+                                <label for="on_sale" class="flex items-center dark:text-gray-300">
+                                    {{-- On Slae Checkbox --}} {{-- wire:model.live="on_sale" will listen to the chekbox and it will send the value to the ProductPage Component --}}
+                                    <input type="checkbox" wire:model.live="on_sale" id="on_sale" value="1" class="w-4 h-4 mr-2">
+                                    
+                                    {{-- Status Name --}}
                                     <span class="text-lg dark:text-gray-400">On Sale</span>
                                 </label>
                             </li>
