@@ -97,6 +97,22 @@ class CartManagement{ // This helper will Provide:
     }
 
     // decrement items Quantity
+    public static function decrementQuantityOfCartItem($product_id){
+        $cart_items = self::GetCartItemsFromCookie(); // getting the cart items from the cookie.
 
-    // calculate grand total
+        foreach ($cart_items as $key => $item){
+            if($item['product_id'] == $product_id){ // finding the product inside the $cart_items cookie.
+                if($item[$key]['quantity'] > 1){ // ensuring not getting negative quantity.
+                    $cart_items[$key]['quantity']-- ; //decreasing the quantity of that item(product) by 1.
+                    $cart_items[$key]['total_amount'] = $cart_items[$key]['quantity'] * $cart_items[$key]['unit_amount']; // and change the 'total_amount' of that product to ('quantity' * 'unit_amount') of that product.
+                }
+            }
+        }
+
+        self::addCartItemsToCookie($cart_items); // Re adding the new $cart_items to the cookie after the update.
+
+        return $cart_items;
+    }
+
+    // calculate cart items grand total
 }
