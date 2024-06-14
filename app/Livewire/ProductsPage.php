@@ -2,6 +2,8 @@
 
 namespace App\Livewire;
 
+use App\Helpers\CartManagement;
+use App\Livewire\Partials\Navbar;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -34,6 +36,14 @@ class ProductsPage extends Component
     #[Url] // getting the passed ($sort_by) value from the view and passing it to the url route attributes.
     public $sort_by = 'latest'; // to get the sort_by value (sorting values) from the products_page view, default value is 'latest'.
 
+    public function addToCart($product_id)// this function will be called only when the event AddToCart is triggered via clicking the button 'Add to Cart' in the products-page.blade.php .
+    {
+        $total_count = CartManagement::addItemToCart($product_id); // adding the product to the cart via addItemToCart function that returns the total count of cart items.
+        
+        // after getting the $total_count of cart items, we will send it to the Navbar component to show the user how many items in his cart, by ->dispatch method.
+        $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class); // 'update-cart-count' is the name of the event, 'total_count' is the data that will send with the event to the Navbar component, and we will listen to this event in the Navbar Component.
+    }
+     
     public function render()
     {
         $productsQuery = Product::query()->where('is_active', 1); // Getting all active Products form the database.
@@ -75,5 +85,5 @@ class ProductsPage extends Component
             'brands' => $brands,
             'categories'=> $categories,
         ]);
-    }
+    } 
 }
