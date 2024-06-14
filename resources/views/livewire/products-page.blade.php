@@ -102,9 +102,9 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- Sortting Products Section --}}
+                
                 <div class="w-full px-3 lg:w-3/4">
+                    {{-- Sortting Products Section --}}
                     <div class="px-3 mb-4">
                         <div class="items-center justify-between hidden px-3 py-2 bg-gray-100 md:flex dark:bg-gray-900 ">
                             <div class="flex items-center justify-between">
@@ -118,9 +118,9 @@
                     </div>
                     
                     {{-- Products List --}}
-                    @foreach ($products as $product)
-                        <div class="flex flex-wrap items-center" wire:key="{{$product->id}}">
-                            <div class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
+                    <div class="flex flex-wrap items-center" >
+                        @foreach ($products as $product)
+                            <div wire:key="{{$product->id}}" class="w-full px-3 mb-6 sm:w-1/2 md:w-1/3">
                                 <div class="border border-gray-300 dark:border-gray-700">
                                     <div class="relative bg-gray-200">
                                         {{-- Navigating to the product details page --}}
@@ -163,9 +163,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
-
+                        @endforeach
+                    </div>
+                    
                     <!-- pagination start -->
                     <div class="flex justify-end mt-6">
                         {{$products->links()}}
