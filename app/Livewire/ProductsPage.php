@@ -7,6 +7,7 @@ use App\Livewire\Partials\Navbar;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -17,6 +18,7 @@ use Livewire\WithPagination;
 class ProductsPage extends Component
 {
     use WithPagination; // to use pagination with livewire.
+    use LivewireAlert; // to use the livewire-alert-SweetAlert2 Package (Added to cart alert message).
 
     #[Url] // a livewire 3 attribute to get the passed ($selected_categories) value from the view and it will pass it to the url route attributes.
     public $selected_categories = []; // to get the selected categories (categories filtering values) from the products_page view.
@@ -42,6 +44,12 @@ class ProductsPage extends Component
         
         // after getting the $total_count of cart items, we will send it to the Navbar component to show the user how many items in his cart, by ->dispatch method.
         $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class); // 'update-cart-count' is the name of the event, 'total_count' is the data that will send with the event to the Navbar component, and we will listen to this event in the Navbar Component.
+
+        $this->alert('success', 'Product Added to the Cart Successfully!', [ // Showing a Success Massage after adding the product to the cart via livewire-alert-SweetAlert2 Package.
+            'position' => 'bottom-end',
+            'timer' => 3000,
+            'toast' => true,
+        ]);
     }
      
     public function render()
