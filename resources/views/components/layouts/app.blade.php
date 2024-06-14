@@ -19,5 +19,8 @@
 
         @livewireScripts {{-- Including the livewire Scripts --}}
         @vite(['resources/js/app.js']) {{-- Including the app.js --}}
+
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> {{-- Including the livewire-alert-SweetAlert2 script --}}
+        <x-livewire-alert::scripts /> {{-- Including the SweetAlert script --}}
     </body>
 </html>
