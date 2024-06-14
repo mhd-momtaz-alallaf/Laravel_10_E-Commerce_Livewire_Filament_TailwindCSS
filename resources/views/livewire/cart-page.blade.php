@@ -74,13 +74,17 @@
                                     {{-- Remove Button --}}
                                     <td>
                                         <button wire:click="removeItem({{ $item['product_id'] }})" class="bg-slate-300 border-2 border-slate-400 rounded-lg px-3 py-1 hover:bg-red-500 hover:text-white hover:border-red-700">
-                                            Remove
+                                            {{-- Removing Loader, Button Name will Temporally changing just after the user is pressed the remove button, the 'Remove' will be temporally replaced with 'Removing...' as follow: --}}
+                                            {{-- Removing the 'Remove' -Button Name- when the event 'removeItem({{ $item['product_id'] }})' is loading --}}
+                                            <span wire:loading.remove wire:target='removeItem({{ $item['product_id'] }})'>Remove</span>
+                                            {{-- Adding the 'Removing...' -Button Name- when the event 'removeItem({{ $item['product_id'] }})' is loading --}} 
+                                            <span wire:loading wire:target='removeItem({{ $item['product_id'] }})'>Removing...</span>
                                         </button>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="tesxt-center py-4 text-2xl font-semibold text-slate-500">No Items Available in the Cart!</td>
+                                    <td colspan="5" class="text-center py-4 text-2xl font-semibold text-slate-500">No Items Available in the Cart!</td>
                                 </tr>
                             @endforelse
                         </tbody>
