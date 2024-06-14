@@ -7,9 +7,9 @@ use Illuminate\Support\Facades\Cookie;
 
 class CartManagement{ // This helper will Provide:
     // add item to the cart
-    public function addItemToCart($product_id){ // this function will add the Product($product_id) to the cart.
-        $cart_items = self::GetCartItemsFromCookie(); // getting the cart items from the cookie.
-
+    public static function addItemToCart($product_id){ // this function will add the Product($product_id) to the cart.
+        $cart_items = self::getCartItemsFromCookie(); // getting the cart items from the cookie.
+        
         $existing_item = null;
 
         foreach ($cart_items as $key => $item){
@@ -18,35 +18,36 @@ class CartManagement{ // This helper will Provide:
                 $existing_item = $key; // if the product is already in the cart, change the $existing_item value to ($key) to use it later.
                 break;
             }
-
-            if($existing_item !== null){ // if the $existing_item is not null(the product is already in the cart),
-                $cart_items[$existing_item]['quantity'] = $item['quantity']++; // so just increase the quantity of that item(product).
-
-                $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount']; // and change the 'total_amount' of that product to ('quantity' * 'unit_amount') of that product.
-            }
-            else{ // else $existing_item == null (the product is not in the cart)
-                $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images']); // getting some attributes of the product.
-
-                if($product){ // if the product exists.
-                    $cart_items[] = [ // assigning the product to the $cart_items.
-                        'product_id' => $product_id,
-                        'name' => $product->name,
-                        'image' => $product->images[0],
-                        'quantity' => 1,
-                        'unit_amount' => $product->price,
-                        'total_amount' => $product->price,
-                    ];
-                }
-            }
-
-            self::addCartItemsToCookie($cart_items); // adding the $cart_items to the cookie.
-
-            return count($cart_items); // returning the $cart_items count.
         }
+
+        if($existing_item !== null){ // if the $existing_item is not null(the product is already in the cart),
+            $cart_items[$existing_item]['quantity'] = $item['quantity']++; // so just increase the quantity of that item(product).
+
+            $cart_items[$existing_item]['total_amount'] = $cart_items[$existing_item]['quantity'] * $cart_items[$existing_item]['unit_amount']; // and change the 'total_amount' of that product to ('quantity' * 'unit_amount') of that product.
+        }
+        else{ // else $existing_item == null (the product is not in the cart)
+            $product = Product::where('id', $product_id)->first(['id', 'name', 'price', 'images']); // getting some attributes of the product.
+
+            if($product){ // if the product exists.
+                $cart_items[] = [ // assigning the product to the $cart_items.
+                    'product_id' => $product_id,
+                    'name' => $product->name,
+                    'image' => $product->images[0],
+                    'quantity' => 1,
+                    'unit_amount' => $product->price,
+                    'total_amount' => $product->price,
+                ];
+            }
+        }
+
+        self::addCartItemsToCookie($cart_items); // adding the $cart_items to the cookie.
+
+        return count($cart_items); // returning the $cart_items count.s
     }
+    
     // remove item from the cart
     public static function removeCartItem($product_id){ // this function will remove the Product($product_id) from the cart.
-        $cart_items = self::GetCartItemsFromCookie(); // getting the cart items from the cookie.
+        $cart_items = self::getCartItemsFromCookie(); // getting the cart items from the cookie.
 
         foreach ($cart_items as $key => $item){
             if($item['product_id'] == $product_id){ // finding the product inside the $cart_items cookie.
@@ -65,13 +66,13 @@ class CartManagement{ // This helper will Provide:
     }
 
     // clean cart items from the Cookie
-    public static function ClearCartItemsFromCookie(){
+    public static function clearCartItemsFromCookie(){
         Cookie::queue(Cookie::forget('cart_items')); // Forget the Cookie named 'cart_items'.
     }
 
     // get all cart items from the Cookie
-    public static function GetCartItemsFromCookie(){
-        $cart_items = json_decode(Cookie::get('cart_items', true)); // converting the cart_items from json format to a collection.
+    public static function getCartItemsFromCookie(){
+        $cart_items = json_decode(Cookie::get('cart_items'), true); // converting the cart_items from json format to a collection.
 
         if(!$cart_items){
             $cart_items = [];
@@ -82,7 +83,7 @@ class CartManagement{ // This helper will Provide:
 
     // increment items Quantity
     public static function incrementQuantityOfCartItem($product_id){
-        $cart_items = self::GetCartItemsFromCookie();
+        $cart_items = self::getCartItemsFromCookie();
 
         foreach ($cart_items as $key => $item){
             if($item['product_id'] == $product_id){ // finding the product inside the $cart_items cookie.
@@ -98,7 +99,7 @@ class CartManagement{ // This helper will Provide:
 
     // decrement items Quantity
     public static function decrementQuantityOfCartItem($product_id){
-        $cart_items = self::GetCartItemsFromCookie(); // getting the cart items from the cookie.
+        $cart_items = self::getCartItemsFromCookie(); // getting the cart items from the cookie.
 
         foreach ($cart_items as $key => $item){
             if($item['product_id'] == $product_id){ // finding the product inside the $cart_items cookie.
