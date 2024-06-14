@@ -10,30 +10,33 @@
                 {{-- Cart Items Secction --}}
                 <div class="bg-white overflow-x-auto rounded-lg shadow-md p-6 mb-4">
                     <table class="w-full">
-                        <thead>
-                            <tr>
-                                <th class="text-left font-semibold">
-                                    Product
-                                </th>
+                        {{-- The table head will show inly if there is som items in the cart --}}
+                        @if ($cart_items)
+                            <thead>
+                                <tr>
+                                    <th class="text-left font-semibold">
+                                        Product
+                                    </th>
 
-                                <th class="text-left font-semibold">
-                                    Price
-                                </th>
+                                    <th class="text-left font-semibold">
+                                        Price
+                                    </th>
 
-                                <th class="text-left font-semibold">
-                                    Quantity
-                                </th>
+                                    <th class="text-left font-semibold">
+                                        Quantity
+                                    </th>
 
-                                <th class="text-left font-semibold">
-                                    Total
-                                </th>
+                                    <th class="text-left font-semibold">
+                                        Total
+                                    </th>
 
-                                <th class="text-left font-semibold">
-                                    Remove
-                                </th>
-                            </tr>
-                        </thead>
-
+                                    <th class="text-left font-semibold">
+                                        Remove
+                                    </th>
+                                </tr>
+                            </thead>
+                        @endif
+                        
                         <tbody>
                             @forelse ($cart_items as $item)
                                 <tr wire:key="{{ $item['product_id'] }}">
@@ -68,15 +71,16 @@
                                         {{ Number::currency($item['total_amount'], 'USD') }}
                                     </td>
 
+                                    {{-- Remove Button --}}
                                     <td>
-                                        <button class="bg-slate-300 border-2 border-slate-400 rounded-lg px-3 py-1 hover:bg-red-500 hover:text-white hover:border-red-700">
+                                        <button wire:click="removeItem({{ $item['product_id'] }})" class="bg-slate-300 border-2 border-slate-400 rounded-lg px-3 py-1 hover:bg-red-500 hover:text-white hover:border-red-700">
                                             Remove
                                         </button>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="tesxt-center py-4 text-4xl font-semibold text-slate-500">No Items Available in the Cart!</td>
+                                    <td colspan="5" class="tesxt-center py-4 text-2xl font-semibold text-slate-500">No Items Available in the Cart!</td>
                                 </tr>
                             @endforelse
                         </tbody>
