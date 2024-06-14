@@ -87,10 +87,10 @@
                             {{-- creating a livewire (adding the product to the cart() event and associate it with the method addToCart() in the component class --}} {{-- we used .prevent to prevent the page from reloading after clicking the 'Add to Cart' button --}}
                             <button wire:click.prevent="addToCart({{ $product->id }})" class="w-full p-4 bg-blue-500 rounded-md lg:w-2/5 dark:text-gray-200 text-gray-50 hover:bg-blue-600 dark:bg-blue-500 dark:hover:bg-blue-700">
                                 {{-- Button Name will Temporally changing just after the user is pressed the add to cart button, the 'Add to Cart' will be temporally replaced with 'Adding...' as follow: --}}
-                                {{-- Removing the 'Add to Cart' -Button Name- --}}
-                                <span wire:loading.remove>Add to Cart</span>
-                                {{-- and Adding the 'Adding...' -Button Name- --}} 
-                                <span wire:loading>Adding...</span>
+                                {{-- Removing the 'Add to Cart' -Button Name- when the event 'addToCart({{ $product->id }})' is loading --}}
+                                <span wire:loading.remove wire:target='addToCart({{ $product->id }})'>Add to Cart</span>
+                                {{-- Adding the 'Adding...' -Button Name- when the event 'addToCart({{ $product->id }})' is loading --}} 
+                                <span wire:loading wire:target='addToCart({{ $product->id }})'>Adding...</span>
                             </button>
                         </div>
                     </div>

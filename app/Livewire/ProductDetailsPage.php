@@ -37,7 +37,7 @@ class ProductDetailsPage extends Component
 
     public function addToCart($product_id)// this function will be called only when the event AddToCart is triggered via clicking the button 'Add to Cart' in the product-details-page.blade.php .
     {
-        $total_count = CartManagement::addItemToCart($product_id); // adding the product to the cart via addItemToCart function that returns the total count of cart items.
+        $total_count = CartManagement::addItemToCartWithQuantity($product_id, $this->quantity); // adding the product with the wanted quantity to the cart via addItemToCartWithQuantity function that returns the total count of cart items.
         
         // after getting the $total_count of cart items, we will send it to the Navbar component to show the user how many items in his cart, by ->dispatch method.
         $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class); // 'update-cart-count' is the name of the event, 'total_count' is the data that will send with the event to the Navbar component, and we will listen to this event in the Navbar Component.
