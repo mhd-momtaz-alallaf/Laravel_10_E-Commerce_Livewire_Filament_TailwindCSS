@@ -40,6 +40,20 @@ class CartPage extends Component
         ]);
     }
 
+    public function increaseQuantity($product_id) // this method is for handling the pressing event on the (Plus Button) in the view and increase the Quantity of the product by 1.
+    {
+        $this->cart_items = CartManagement::incrementQuantityOfCartItem($product_id); // incrementing the quantity of the item by the method incrementQuantityOfCartItem().
+
+        $this->grand_total = CartManagement::calculateCartItemsGrandTotal($this->cart_items); // re calculate the grand_total after increasing the quantity.
+    }
+
+    public function decreaseQuantity($product_id)  // this method is for handling the pressing event on the (Minus Button) in the view and decrease the Quantity of the product by 1.
+    {
+        $this->cart_items = CartManagement::decrementQuantityOfCartItem($product_id); // decrementing the quantity of the item by the method incrementQuantityOfCartItem().
+
+        $this->grand_total = CartManagement::calculateCartItemsGrandTotal($this->cart_items); // re calculate the grand_total after decreasing the quantity.
+    }
+
     public function render()
     {
         return view('livewire.cart-page');

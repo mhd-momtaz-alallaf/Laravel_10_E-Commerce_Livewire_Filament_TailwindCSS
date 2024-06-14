@@ -51,17 +51,21 @@
                                         {{ Number::currency($item['unit_amount'], 'USD') }}
                                     </td>
 
+                                    {{-- Quantity Field --}}
                                     <td class="py-4">
                                         <div class="flex items-center">
-                                            <button class="border rounded-md py-2 px-4 mr-2">
+                                            {{-- Minus Button --}}
+                                            <button wire:click="decreaseQuantity({{ $item['product_id'] }})" class="border rounded-md py-2 px-4 mr-2">
                                                 -
                                             </button>
 
+                                            {{-- Quantity --}}
                                             <span class="text-center w-8">
                                                 {{ $item['quantity'] }}
                                             </span>
 
-                                            <button class="border rounded-md py-2 px-4 ml-2">
+                                            {{-- Plus Button --}}
+                                            <button wire:click="increaseQuantity({{ $item['product_id'] }})" class="border rounded-md py-2 px-4 ml-2">
                                                 +
                                             </button>
                                         </div>
