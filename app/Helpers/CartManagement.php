@@ -142,7 +142,7 @@ class CartManagement{ // This helper will Provide:
 
         foreach ($cart_items as $key => $item){
             if($item['product_id'] == $product_id){ // finding the product inside the $cart_items cookie.
-                if($item[$key]['quantity'] > 1){ // ensuring not getting negative quantity.
+                if($item['quantity'] > 1){ // ensuring not getting negative quantity.
                     $cart_items[$key]['quantity']-- ; //decreasing the quantity of that item(product) by 1.
                     $cart_items[$key]['total_amount'] = $cart_items[$key]['quantity'] * $cart_items[$key]['unit_amount']; // and change the 'total_amount' of that product to ('quantity' * 'unit_amount') of that product.
                 }
