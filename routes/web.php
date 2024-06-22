@@ -27,18 +27,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/login', LoginPage::class)
-    ->name('login');
-
-Route::get('/register', RegisterPage::class)
-    ->name('register');
-
-Route::get('/forget-password', ForgetPasswordPage::class)
-    ->name('forget-password');
-
-Route::get('/reset-password', ResetPasswordPage::class)
-    ->name('reset-password');
-
 Route::get('/', HomePage::class)
     ->name('home');
 
@@ -54,17 +42,38 @@ Route::get('/products/{product:slug}', ProductDetailsPage::class) // Showing the
 Route::get('/cart', CartPage::class)
     ->name('cart');
 
-Route::get('/checkout', CheckoutPage::class)
+Route::middleware('guest')->group(function () {
+    Route::get('/login', LoginPage::class)
+    ->name('login');
+
+    Route::get('/register', RegisterPage::class)
+        ->name('register');
+
+    Route::get('/forget-password', ForgetPasswordPage::class)
+        ->name('forget-password');
+
+    Route::get('/reset-password', ResetPasswordPage::class)
+        ->name('reset-password');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/logout', function () {
+        auth()->logout();
+        return redirect(route('home'));
+    })->name('logout');
+
+    Route::get('/checkout', CheckoutPage::class)
     ->name('checkout');
 
-Route::get('/my-orders', MyOrdersPage::class)
-    ->name('my-orders');
+    Route::get('/my-orders', MyOrdersPage::class)
+        ->name('my-orders');
 
-Route::get('/my-orders/{order}', MyOrderDetailsPage::class)
-    ->name('my-order-details');
+    Route::get('/my-orders/{order}', MyOrderDetailsPage::class)
+        ->name('my-order-details');
 
-Route::get('/success', SuccessPage::class)
-    ->name('success');
+    Route::get('/success', SuccessPage::class)
+        ->name('success');
 
-Route::get('/cancel', CancelPage::class)
-    ->name('cancel');
+    Route::get('/cancel', CancelPage::class)
+        ->name('cancel');
+});
