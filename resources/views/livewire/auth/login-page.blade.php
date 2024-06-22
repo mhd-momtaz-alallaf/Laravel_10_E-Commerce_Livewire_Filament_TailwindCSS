@@ -62,7 +62,8 @@
                                         Password
                                     </label>
 
-                                    <a class="text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="/forgot">
+                                    <a class="text-sm text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" 
+                                        href="{{ route('forget-password') }}">
                                         Forgot password?
                                     </a>
                                 </div>

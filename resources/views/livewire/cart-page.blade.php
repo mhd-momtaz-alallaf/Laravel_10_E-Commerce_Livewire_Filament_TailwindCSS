@@ -135,9 +135,9 @@
 
                     {{-- Checkout Button will show only if there is some items in the cart --}}
                     @if ($cart_items)
-                        <button class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
+                        <a href="{{ route('checkout') }}" class="block text-center bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
                             Checkout
-                        </button>
+                        </a>
                     @endif
                 </div>
             </div>
