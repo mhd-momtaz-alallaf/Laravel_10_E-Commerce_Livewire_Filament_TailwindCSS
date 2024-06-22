@@ -52,8 +52,8 @@ Route::middleware('guest')->group(function () {
     Route::get('/forget-password', ForgetPasswordPage::class)
         ->name('forget-password');
 
-    Route::get('/reset-password', ResetPasswordPage::class)
-        ->name('reset-password');
+    Route::get('/reset/{token}', ResetPasswordPage::class)
+        ->name('password.reset');
 });
 
 Route::middleware('auth')->group(function () {
