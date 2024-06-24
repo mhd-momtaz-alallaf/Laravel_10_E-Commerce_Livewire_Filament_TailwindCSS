@@ -187,27 +187,29 @@
 					BASKET SUMMARY
 				</div>
 
+				{{-- Basket Items --}}
 				<ul class="divide-y divide-gray-200 dark:divide-gray-700" role="list">
 					@foreach ($cart_items as $item)
 						<li class="py-3 sm:py-4" wire:key="{{ $item['product_id'] }}">
 							<div class="flex items-center">
 								<div class="flex-shrink-0">
-									<img alt="{{ $item['name'] }}" class="w-12 h-12 rounded-full" src="https://iplanet.one/cdn/shop/files/iPhone_15_Pro_Max_Blue_Titanium_PDP_Image_Position-1__en-IN_1445x.jpg?v=1695435917">
+									<img alt="{{ $item['name'] }}" class="w-12 h-12 rounded-full" 
+										src="{{ url('storage/' . ltrim($item['image'], '/')) }}">
 									</img>
 								</div>
 
 								<div class="flex-1 min-w-0 ms-4">
 									<p class="text-sm font-medium text-gray-900 truncate dark:text-white">
-										Apple iPhone 15 Pro Max
+										{{ $item['name'] }}
 									</p>
 
 									<p class="text-sm text-gray-500 truncate dark:text-gray-400">
-										Quantity: 1
+										Quantity: {{ $item['quantity'] }}
 									</p>
 								</div>
 
 								<div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
-									$320
+									{{ Number::currency($item['total_amount'], 'USD') }} 
 								</div>
 							</div>
 						</li>
