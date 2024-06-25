@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Helpers\CartManagement;
+use App\Models\Order;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -19,9 +20,9 @@ class CheckoutPage extends Component
     public $zip_code;
     public $payment_method;
 
-    public function placeOrder()
+    public function placeOrder() // Storing the User Order into the database.
     {
-        $this->validate([
+        $this->validate([ // validating the form data. 
             'first_name' => 'required',
             'last_name' => 'required',
             'phone' => 'required',
@@ -31,6 +32,30 @@ class CheckoutPage extends Component
             'zip_code' => 'required',
             'payment_method' => 'required',
         ]);
+
+        $cart_items = CartManagement::getCartItemsFromCookie(); // getting the cart items of the user from the cookie.
+
+        $line_items = [];
+
+        foreach($cart_items as $item) // getting the price information of each item in the cart.
+        {
+            $line_items[] = [
+                'price_data' => [
+                    'currency' => 'USD',
+                    'unit_amount' => $item['unit_amount'] * 100,
+                    'product_data' => [
+                        'name' => $item['name'],
+                    ]
+                ],
+                'quantity' => $item['quantity'],
+            ];
+
+            $order = new Order(); // creating a new order.
+
+            $order->user_id = auth()->user()->id;
+            $order->grand_total = CartManagement::calculateCartItemsGrandTotal($cart_items);
+
+        }
     }
 
     public function render()
