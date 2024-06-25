@@ -10,6 +10,29 @@ use Livewire\Component;
 
 class CheckoutPage extends Component
 {
+    public $first_name; // livewire properties to handel the passed form view values.
+    public $last_name;
+    public $phone;
+    public $street_address;
+    public $city;
+    public $state;
+    public $zip_code;
+    public $payment_method;
+
+    public function placeOrder()
+    {
+        $this->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'street_address' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip_code' => 'required',
+            'payment_method' => 'required',
+        ]);
+    }
+
     public function render()
     {
         $cart_items = CartManagement::getCartItemsFromCookie(); // getting the cart items from the cookie.
