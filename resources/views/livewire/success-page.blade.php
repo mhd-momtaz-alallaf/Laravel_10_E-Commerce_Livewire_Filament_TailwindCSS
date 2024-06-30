@@ -75,6 +75,7 @@
                 </div>
             </div>
 
+            {{-- Order details --}}
             <div class="px-4 mb-10">
                 <div class="flex flex-col items-stretch justify-center w-full space-y-4 md:flex-row md:space-y-0 md:space-x-8">
                     <div class="flex flex-col w-full space-y-6 ">
@@ -82,25 +83,33 @@
                         <div class="flex flex-col items-center justify-center w-full pb-4 space-y-4 border-b border-gray-200 dark:border-gray-700">
                             <div class="flex justify-between w-full">
                                 <p class="text-base leading-4 text-gray-800 dark:text-gray-400">Subtotal</p>
-                                <p class="text-base leading-4 text-gray-600 dark:text-gray-400">₹157,495.00</p>
+                                <p class="text-base leading-4 text-gray-600 dark:text-gray-400">
+                                    {{ Number::currency($order->grand_total, 'USD') }}
+                                </p>
                             </div>
 
                             <div class="flex items-center justify-between w-full">
                                 <p class="text-base leading-4 text-gray-800 dark:text-gray-400">
                                     Discount
                                 </p>
-                                <p class="text-base leading-4 text-gray-600 dark:text-gray-400">00</p>
+                                <p class="text-base leading-4 text-gray-600 dark:text-gray-400">
+                                    {{ Number::currency(0, 'USD') }}
+                                </p>
                             </div>
 
                             <div class="flex items-center justify-between w-full">
                                 <p class="text-base leading-4 text-gray-800 dark:text-gray-400">Shipping</p>
-                                <p class="text-base leading-4 text-gray-600 dark:text-gray-400">00</p>
+                                <p class="text-base leading-4 text-gray-600 dark:text-gray-400">
+                                    {{ Number::currency(0, 'USD') }}
+                                </p>
                             </div>
                         </div>
 
                         <div class="flex items-center justify-between w-full">
                             <p class="text-base font-semibold leading-4 text-gray-800 dark:text-gray-400">Total</p>
-                            <p class="text-base font-semibold leading-4 text-gray-600 dark:text-gray-400">₹157,495.00</p>
+                            <p class="text-base font-semibold leading-4 text-gray-600 dark:text-gray-400">
+                                {{ Number::currency($order->grand_total, 'USD') }}
+                            </p>
                         </div>
                     </div>
 
@@ -122,7 +131,9 @@
                                 </div>
                             </div>
 
-                            <p class="text-lg font-semibold leading-6 text-gray-800 dark:text-gray-400">00</p>
+                            <p class="text-lg font-semibold leading-6 text-gray-800 dark:text-gray-400">
+                                {{ Number::currency(0, 'USD') }}
+                            </p>
                         </div>
                     </div>
                 </div>
