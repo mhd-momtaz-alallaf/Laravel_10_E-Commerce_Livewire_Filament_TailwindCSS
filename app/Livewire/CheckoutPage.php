@@ -23,6 +23,15 @@ class CheckoutPage extends Component
     public $zip_code;
     public $payment_method;
 
+    public function mount()
+    {
+        $cart_items = CartManagement::getCartItemsFromCookie();
+
+        if(count($cart_items) == 0){
+            return redirect(route('products')); // redirecting the user to the products page if the cart is empty, so the user can't access the checkout page if its empty.
+        }
+    }
+
     public function placeOrder() // Storing the User Order into the database.
     {
         $this->validate([ // validating the form data. 
