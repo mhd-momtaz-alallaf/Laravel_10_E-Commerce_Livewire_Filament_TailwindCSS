@@ -230,7 +230,9 @@
 
 				{{-- Place Order Button --}}
 				<button type="submit" class="bg-green-500 mt-4 w-full p-3 rounded-lg text-lg text-white hover:bg-green-600">
-					Place Order
+					<span wire:loading.remove>Place Order</span>
+					{{-- Adding a Processing... Loader when the user clicks the Button --}}
+					<span wire:loading>Processing...</span>
 				</button>
 
 				{{-- Basket Summary Section --}}
