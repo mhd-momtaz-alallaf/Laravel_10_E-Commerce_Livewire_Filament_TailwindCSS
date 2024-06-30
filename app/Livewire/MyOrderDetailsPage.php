@@ -21,7 +21,7 @@ class MyOrderDetailsPage extends Component
 
     public function render()
     {
-        $order = Order::where('order_id', $this->order_id)->first();
+        $order = Order::where('id', $this->order_id)->first();
         $order_items = OrderItem::with('product')->where('order_id', $this->order_id)->get();
         $order_address = Address::where('order_id', $this->order_id)->first();
 
