@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Helpers\CartManagement;
+use App\Models\Address;
 use App\Models\Order;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -50,8 +51,8 @@ class CheckoutPage extends Component
                 'quantity' => $item['quantity'],
             ];
         }
-
-        $order = new Order(); // creating a new Order instance then assigning all the Order required fields.
+        // creating a new Order instance then assigning all the Order required fields.
+        $order = new Order(); 
 
         $order->user_id = auth()->user()->id;
         $order->grand_total = CartManagement::calculateCartItemsGrandTotal($cart_items);
@@ -62,6 +63,17 @@ class CheckoutPage extends Component
         $order->shipping_amount = 0;
         $order->shipping_method = 'none';
         $order->notes = 'Order Placed by' . auth()->user()->name;
+
+        // creating a new Address model instance and assigning all the Address required fields.
+        $address = new Address(); 
+        
+        $address->first_name = $this->first_name;
+        $address->last_name = $this->last_name;
+        $address->phone = $this->phone;
+        $address->street_address = $this->street_address;
+        $address->city = $this->city;
+        $address->state = $this->state;
+        $address->zip_code = $this->zip_code; 
     }
 
     public function render()
