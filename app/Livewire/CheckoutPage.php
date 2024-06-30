@@ -7,6 +7,8 @@ use App\Models\Address;
 use App\Models\Order;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 #[Title('Checkout | E-Commerce')] // Livewire Attribute for Changing the Default page title.
 
@@ -66,7 +68,7 @@ class CheckoutPage extends Component
 
         // creating a new Address model instance and assigning all the Address required fields.
         $address = new Address(); 
-        
+
         $address->first_name = $this->first_name;
         $address->last_name = $this->last_name;
         $address->phone = $this->phone;
@@ -74,6 +76,26 @@ class CheckoutPage extends Component
         $address->city = $this->city;
         $address->state = $this->state;
         $address->zip_code = $this->zip_code; 
+
+        $redirect_url = '';
+
+        // Stripe Payment process
+        if($this->payment_method == 'stripe'){
+            Stripe::setApiKey(env('STRIPE_SECRET'));
+            $sessionCheckout = Session::create([
+                'payment_method_types' => ['card'],
+                'customer_email' => auth()->user()->email,
+                'line_items' => $line_items,
+                'mode' => 'payment',
+                'success_url' => route('success') . '?session_id={CHECKOUT_SESSION_ID}',
+                'cancel_url' => route('cancel'),
+            ]);
+
+            $redirect_url = $sessionCheckout->url;
+        } else{
+            // if the payment method is 'Cash on delivery' just redirect the user to the success page.
+            $redirect_url = route('success');
+        }
     }
 
     public function render()
