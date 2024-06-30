@@ -5,21 +5,27 @@
                 Thank you. Your order has been received.
             </h1>
 
+            {{-- Street info section --}}
             <div class="flex border-b border-gray-200 dark:border-gray-700  items-stretch justify-start w-full h-full px-4 mb-8 md:flex-row xl:flex-col md:space-x-6 lg:space-x-8 xl:space-x-0">
                 <div class="flex items-start justify-start flex-shrink-0">
                     <div class="flex items-center justify-center w-full pb-6 space-x-4 md:justify-start">
                         <div class="flex flex-col items-start justify-start space-y-2">
+                            {{-- Address full name --}}
                             <p class="text-lg font-semibold leading-4 text-left text-gray-800 dark:text-gray-400">
-                                Cielo Schimmel
+                                {{ $order->address->full_name }}
                             </p>
+
+                            {{-- Address street address --}}
                             <p class="text-sm leading-4 text-gray-600 dark:text-gray-400">
-                                71582 Schmitt Springs
+                                {{ $order->address->street_address }}
                             </p>
+
+                            {{-- Address city, state, zip code --}}
                             <p class="text-sm leading-4 text-gray-600 dark:text-gray-400">
-                                Castro Valley, Delaware, 53476-0454
+                                {{ $order->address->city }}, {{ $order->address->state }}, {{ $order->address->zip_code }}
                             </p>
                             <p class="text-sm leading-4 cursor-pointer dark:text-gray-400">
-                                Phone: 587-019-6103
+                                Phone: {{ $order->address->phone }}
                             </p>
                         </div>
                     </div>
