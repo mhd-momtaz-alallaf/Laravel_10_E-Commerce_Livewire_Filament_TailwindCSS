@@ -18,7 +18,7 @@ class OrderStats extends BaseWidget
 
             Stat::make('Shipped Orders', Order::query()->where('status','shipped')->count()), // This Widget is for getting the shipped orders count and show it as a card in the orders list page.
 
-            Stat::make('Average Price', Number::currency(Order::query()->avg('grand_total'), 'USD')), // This Widget is for getting the average price of all the orders.
+            Stat::make('Average Price', Number::currency(Order::query()->avg('grand_total')?? 0, 'USD') ) , // This Widget is for getting the average price of all the orders, if no orders the average is 0.
         ];
     }
 }
