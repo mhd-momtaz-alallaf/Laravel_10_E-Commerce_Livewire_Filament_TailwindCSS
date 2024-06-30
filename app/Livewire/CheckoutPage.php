@@ -53,6 +53,7 @@ class CheckoutPage extends Component
                 'quantity' => $item['quantity'],
             ];
         }
+
         // creating a new Order instance then assigning all the Order required fields.
         $order = new Order(); 
 
@@ -96,6 +97,13 @@ class CheckoutPage extends Component
             // if the payment method is 'Cash on delivery' just redirect the user to the success page.
             $redirect_url = route('success');
         }
+
+        // saving the changes to the $order.
+        $order->save();
+
+        // saving the changes to the $address.
+        $address->order_id = $order->id;
+        $address->save();
     }
 
     public function render()
