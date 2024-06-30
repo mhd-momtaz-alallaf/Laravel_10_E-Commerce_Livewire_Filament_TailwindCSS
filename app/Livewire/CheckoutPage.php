@@ -104,6 +104,15 @@ class CheckoutPage extends Component
         // saving the changes to the $address.
         $address->order_id = $order->id;
         $address->save();
+
+        // Associating the $order with the OrderItems Model by the items() relation
+        $order->items()->createMany($cart_items); 
+
+        // Clearing the Cart items after the payment process is completed successfully.
+        CartManagement::clearCartItemsFromCookie();
+
+        // Redirecting the user to the proper url.
+        return redirect($redirect_url);
     }
 
     public function render()
