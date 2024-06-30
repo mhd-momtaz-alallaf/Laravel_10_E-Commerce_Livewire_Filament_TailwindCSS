@@ -40,6 +40,40 @@
 
                         <tbody>
                             @forelse($orders as $order)
+                                @php
+                                    // Changing the color of the Order status.
+                                    $order_status_color = '';
+
+                                    if($order->status == 'new'){
+                                        $order_status_color = '<span class="bg-blue-500 py-1 px-3 rounded text-white shadow">New</span>';
+                                    } 
+                                    elseif($order->status == 'processing'){
+                                        $order_status_color = '<span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">Processing</span>';
+                                    } 
+                                    elseif($order->status == 'shipped'){
+                                        $order_status_color = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Shipped</span>';
+                                    } 
+                                    elseif($order->status == 'deliverd'){
+                                        $order_status_color = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Deliverd</span>';
+                                    } 
+                                    elseif($order->status == 'canceled'){
+                                        $order_status_color = '<span class="bg-red-500 py-1 px-3 rounded text-white shadow">Canceled</span>';
+                                    }
+
+                                    // Changing the color of the Payment status.
+                                    $payment_status_color = '';
+
+                                    if($order->payment_status == 'pending'){
+                                        $payment_status_color = '<span class="bg-blue-500 py-1 px-3 rounded text-white shadow">Pending</span>';
+                                    } 
+                                    elseif($order->payment_status == 'paid'){
+                                        $payment_status_color = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Paid</span>';
+                                    } 
+                                    elseif($order->payment_status == 'failed'){
+                                        $payment_status_color = '<span class="bg-red-500 py-1 px-3 rounded text-white shadow">Failed</span>';
+                                    }
+                                @endphp
+
                                 <tr wire:key="{{ $order->id }}" class="odd:bg-white even:bg-gray-100 dark:odd:bg-slate-900 dark:even:bg-slate-800">
                                     {{-- Order ID --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
@@ -53,16 +87,12 @@
 
                                     {{-- Order Status --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                                        <span class="bg-orange-500 py-1 px-3 rounded text-white shadow">
-                                            {{ $order->status }}
-                                        </span>
+                                        {!! $order_status_color !!}
                                     </td>
 
                                     {{-- Order Payment Method --}}
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
-                                        <span class="bg-green-500 py-1 px-3 rounded text-white shadow">
-                                            {{ $order->payment_status }}
-                                        </span>
+                                        {!! $payment_status_color !!}
                                     </td>
 
                                     {{-- Order Grand Total --}}
