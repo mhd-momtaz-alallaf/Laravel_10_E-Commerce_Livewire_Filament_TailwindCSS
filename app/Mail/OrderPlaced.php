@@ -13,12 +13,13 @@ class OrderPlaced extends Mailable
 {
     use Queueable, SerializesModels;
 
+    public $order;
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public function __construct($order)
     {
-        //
+        $this->order = $order;
     }
 
     /**
@@ -27,7 +28,7 @@ class OrderPlaced extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Order Placed',
+            subject: 'Order Placed | E-Commerce Store',
         );
     }
 
@@ -38,6 +39,10 @@ class OrderPlaced extends Mailable
     {
         return new Content(
             markdown: 'mail.orders.placed',
+            // passing the user order url to the view.
+            with: [
+                'url' => route('my-orders.show', $this->order),
+            ]
         );
     }
 
