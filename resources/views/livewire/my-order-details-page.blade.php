@@ -80,9 +80,27 @@
                     </div>
 
                     <div class="mt-1 flex items-center gap-x-2">
-                        <span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">
-                            {{ $order->status }}
-                        </span>
+                        @php
+                            // Changing the color of the Order status.
+                            $order_status_color = '';
+
+                            if($order->status == 'new'){
+                                $order_status_color = '<span class="bg-blue-500 py-1 px-3 rounded text-white shadow">New</span>';
+                            } 
+                            elseif($order->status == 'processing'){
+                                $order_status_color = '<span class="bg-yellow-500 py-1 px-3 rounded text-white shadow">Processing</span>';
+                            } 
+                            elseif($order->status == 'shipped'){
+                                $order_status_color = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Shipped</span>';
+                            } 
+                            elseif($order->status == 'deliverd'){
+                                $order_status_color = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Deliverd</span>';
+                            } 
+                            elseif($order->status == 'canceled'){
+                                $order_status_color = '<span class="bg-red-500 py-1 px-3 rounded text-white shadow">Canceled</span>';
+                            }
+                        @endphp
+                        {!! $order_status_color !!}
                     </div>
                 </div>
             </div>
@@ -109,9 +127,21 @@
                     </div>
 
                     <div class="mt-1 flex items-center gap-x-2">
-                        <span class="bg-green-500 py-1 px-3 rounded text-white shadow">
-                            {{ $order->payment_status }}
-                        </span>
+                        @php
+                            // Changing the color of the Payment status.
+                            $payment_status_color = '';
+
+                            if($order->payment_status == 'pending'){
+                                $payment_status_color = '<span class="bg-blue-500 py-1 px-3 rounded text-white shadow">Pending</span>';
+                            } 
+                            elseif($order->payment_status == 'paid'){
+                                $payment_status_color = '<span class="bg-green-500 py-1 px-3 rounded text-white shadow">Paid</span>';
+                            } 
+                            elseif($order->payment_status == 'failed'){
+                                $payment_status_color = '<span class="bg-red-500 py-1 px-3 rounded text-white shadow">Failed</span>';
+                            }
+                        @endphp
+                        {!! $payment_status_color !!}
                     </div>
                 </div>
             </div>
