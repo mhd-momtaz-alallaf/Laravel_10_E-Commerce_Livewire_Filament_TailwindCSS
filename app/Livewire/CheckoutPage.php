@@ -74,7 +74,7 @@ class CheckoutPage extends Component
         $order->currency = 'USD';
         $order->shipping_amount = 0;
         $order->shipping_method = 'none';
-        $order->notes = 'Order Placed by' . auth()->user()->name;
+        $order->notes = 'Order Placed by ' . auth()->user()->name;
 
         // creating a new Address model instance and assigning all the Address required fields.
         $address = new Address(); 
