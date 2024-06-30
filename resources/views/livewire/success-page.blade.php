@@ -32,6 +32,7 @@
                 </div>
             </div>
 
+            {{-- Order Info --}}
             <div class="flex flex-wrap items-center pb-4 mb-10 border-b border-gray-200 dark:border-gray-700">
                 <div class="w-full px-4 mb-4 md:w-1/4">
                     <p class="mb-2 text-sm leading-5 text-gray-600 dark:text-gray-400 ">
@@ -39,7 +40,7 @@
                     </p>
 
                     <p class="text-base font-semibold leading-4 text-gray-800 dark:text-gray-400">
-                        29
+                        {{ $order->id }}
                     </p>
                 </div>
 
@@ -49,7 +50,7 @@
                     </p>
 
                     <p class="text-base font-semibold leading-4 text-gray-800 dark:text-gray-400">
-                        17-02-2024
+                        {{ $order->created_at->format('d-m-Y') }}
                     </p>
                 </div>
 
@@ -59,7 +60,7 @@
                     </p>
 
                     <p class="text-base font-semibold leading-4 text-blue-600 dark:text-gray-400">
-                        ₹157,495.00
+                        {{ Number::currency($order->grand_total, 'USD') }}
                     </p>
                 </div>
 
@@ -69,7 +70,7 @@
                     </p>
 
                     <p class="text-base font-semibold leading-4 text-gray-800 dark:text-gray-400 ">
-                        Cash on Delivery 
+                        {{ $order->payment_method == 'cod' ? 'Cash on Delivery' : 'Card' }}
                     </p>
                 </div>
             </div>
