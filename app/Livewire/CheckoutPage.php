@@ -49,13 +49,19 @@ class CheckoutPage extends Component
                 ],
                 'quantity' => $item['quantity'],
             ];
-
-            $order = new Order(); // creating a new order.
-
-            $order->user_id = auth()->user()->id;
-            $order->grand_total = CartManagement::calculateCartItemsGrandTotal($cart_items);
-
         }
+
+        $order = new Order(); // creating a new Order instance then assigning all the Order required fields.
+
+        $order->user_id = auth()->user()->id;
+        $order->grand_total = CartManagement::calculateCartItemsGrandTotal($cart_items);
+        $order->payment_method = $this->payment_method;
+        $order->payment_status = 'pending';
+        $order->status = 'new';
+        $order->currency = 'USD';
+        $order->shipping_amount = 0;
+        $order->shipping_method = 'none';
+        $order->notes = 'Order Placed by' . auth()->user()->name;
     }
 
     public function render()
