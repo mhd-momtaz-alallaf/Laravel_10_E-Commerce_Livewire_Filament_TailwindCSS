@@ -31,17 +31,17 @@ class ProductsPage extends Component
 
     #[Url] // getting the passed ($on_sale) value from the view and passing it to the url route attributes.
     public $on_sale = []; // to get the selected 'On Sale' status value (Status filtering values) from the products_page view.
-   
+
     #[Url] // getting the passed ($price_range) value from the view and passing it to the url route attributes.
-    public $max_price_range = 50000; // to get the max_price_range value (Price filtering values) from the products_page view, default value is 50000.
-   
+    public $max_price_range = 10000; // to get the max_price_range value (Price filtering values) from the products_page view, default value is 50000.
+
     #[Url] // getting the passed ($sort_by) value from the view and passing it to the url route attributes.
     public $sort_by = 'latest'; // to get the sort_by value (sorting values) from the products_page view, default value is 'latest'.
 
     public function addToCart($product_id)// this function will be called only when the event AddToCart is triggered via clicking the button 'Add to Cart' in the products-page.blade.php .
     {
         $total_count = CartManagement::addItemToCart($product_id); // adding the product to the cart via addItemToCart function that returns the total count of cart items.
-        
+
         // after getting the $total_count of cart items, we will send it to the Navbar component to show the user how many items in his cart, by ->dispatch method.
         $this->dispatch('update-cart-count', total_count: $total_count)->to(Navbar::class); // 'update-cart-count' is the name of the event, 'total_count' is the data that will send with the event to the Navbar component, and we will listen to this event in the Navbar Component.
 
@@ -51,7 +51,7 @@ class ProductsPage extends Component
             'toast' => true,
         ]);
     }
-     
+
     public function render()
     {
         $productsQuery = Product::query()->where('is_active', 1); // Getting all active Products form the database.
@@ -73,10 +73,10 @@ class ProductsPage extends Component
         }
 
         if($this->max_price_range){ // getting the filtering by 'Price', we will add more condition to the productsQuery.
-            $productsQuery->whereBetween('price', [0, $this->max_price_range]); // getting only the products that have price from 0 to (max_price_range as max price). 
+            $productsQuery->whereBetween('price', [0, $this->max_price_range]); // getting only the products that have price from 0 to (max_price_range as max price).
         }
 
-        if($this->sort_by == 'latest'){ 
+        if($this->sort_by == 'latest'){
             $productsQuery->latest(); // sorting by 'latest'.
         }
 
@@ -93,5 +93,5 @@ class ProductsPage extends Component
             'brands' => $brands,
             'categories'=> $categories,
         ]);
-    } 
+    }
 }

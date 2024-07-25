@@ -16,7 +16,7 @@
                                     <label for="{{$category->slug}}" class="flex items-center dark:text-gray-400 ">
                                         {{-- Category Checkbox --}} {{-- wire:model.live="selected_categories" will listen to the chekbox and it will send the selected categories to the ProductPage Component --}}
                                         <input type="checkbox" wire:model.live="selected_categories" id="{{$category->slug}}" value="{{$category->id}}" class="w-4 h-4 mr-2">
-                                        
+
                                         {{-- Category Name --}}
                                         <span class="text-lg dark:text-gray-400">{{$category->name}}</span>
                                     </label>
@@ -37,7 +37,7 @@
                                     <label for="" class="flex items-center dark:text-gray-300">
                                         {{-- Brand Checkbox --}} {{-- wire:model.live="selected_brands" will listen to the chekbox and it will send the selected brands to the ProductPage Component --}}
                                         <input type="checkbox" wire:model.live="selected_brands" id="{{$brand->slug}}" value="{{$brand->id}}" class="w-4 h-4 mr-2">
-                                        
+
                                         {{-- Brand Name --}}
                                         <span class="text-lg dark:text-gray-400">{{$brand->name}}</span>
                                     </label>
@@ -58,7 +58,7 @@
                                 <label for="featured" class="flex items-center dark:text-gray-300">
                                     {{-- Featured Products Checkbox --}} {{-- wire:model.live="featured" will listen to the chekbox and it will send the value to the ProductPage Component --}}
                                     <input type="checkbox" wire:model.live="featured" id="featured" value="1" class="w-4 h-4 mr-2">
-                                    
+
                                     {{-- Status Name --}}
                                     <span class="text-lg dark:text-gray-400">Featured Products</span>
                                 </label>
@@ -69,17 +69,17 @@
                                 <label for="on_sale" class="flex items-center dark:text-gray-300">
                                     {{-- On Slae Checkbox --}} {{-- wire:model.live="on_sale" will listen to the chekbox and it will send the value to the ProductPage Component --}}
                                     <input type="checkbox" wire:model.live="on_sale" id="on_sale" value="1" class="w-4 h-4 mr-2">
-                                    
+
                                     {{-- Status Name --}}
                                     <span class="text-lg dark:text-gray-400">On Sale</span>
                                 </label>
                             </li>
                         </ul>
                     </div>
-        
+
                     {{-- Price Range Filtering section --}}
                     <div class="p-4 mb-5 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-900">
-                        <h2 class="text-2xl font-bold dark:text-gray-400"> Maximum Price</h2>
+                        <h2 class="text-2xl font-bold dark:text-gray-400">Maximum Price</h2>
 
                         <div class="w-16 pb-2 mb-6 border-b border-rose-600 dark:border-gray-400"></div>
 
@@ -90,19 +90,19 @@
                             </div>
 
                             {{-- The Range selector bar --}} {{-- wire:model.live="price_range" will listen to the price selector and it will send the value to the ProductPage Component --}}
-                            <input type="range" wire:model.live="max_price_range" class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="50000" value="50000" step="1000">
+                            <input type="range" wire:model.live="max_price_range" class="w-full h-1 mb-4 bg-blue-100 rounded appearance-none cursor-pointer" max="10000" value="10000" step="200">
 
                             <div class="flex justify-between ">
                                 {{-- Min --}}
-                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; {{ Number::currency(1000, 'USD') }}</span>
+                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; {{ Number::currency(200, 'USD') }}</span>
 
                                 {{-- Max --}}
-                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; {{ Number::currency(50000, 'USD') }}</span>
+                                <span class="inline-block text-lg font-bold text-blue-400 ">&#8377; {{ Number::currency(10000, 'USD') }}</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="w-full px-3 lg:w-3/4">
                     {{-- Sortting Products Section --}}
                     <div class="px-3 mb-4">
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     {{-- Products List --}}
                     <div class="flex flex-wrap items-center" >
                         @foreach ($products as $product)
@@ -124,12 +124,12 @@
                                 <div class="border border-gray-300 dark:border-gray-700">
                                     <div class="relative bg-gray-200">
                                         {{-- Navigating to the product details page --}}
-                                        <a href={{route('product-details', $product)}} class="">
+                                        <a wire:navigate href={{route('product-details', $product)}} class="">
                                             {{-- Showing only the first image of the product from the $product->images array --}} {{-- . ltrim($product->images[0], '/') will remove any any leading slashes (/image_path) from the $images path, ensuring there are no double slashes in the resulting URL --}}
                                             <img src="{{ url('storage/'. ltrim($product->images[0], '/')) }}" alt="{{$product->name}}" class="object-cover w-full h-56 mx-auto ">
                                         </a>
                                     </div>
-                                    
+
                                     <div class="p-3 ">
                                         {{-- Displaying the product Name --}}
                                         <div class="flex items-center justify-between gap-2 mb-2">
@@ -157,7 +157,7 @@
                                             {{-- Button Name will Temporally changing just after the user is pressed the add to cart button, the 'Add to Cart' will be temporally replaced with 'Adding...' as follow: --}}
                                             {{-- Removing the 'Add to Cart' -Button Name- when the event 'addToCart({{ $product->id }})' is loading --}}
                                             <span wire:loading.remove wire:target='addToCart({{ $product->id }})'>Add to Cart</span>
-                                            {{-- Adding the 'Adding...' -Button Name- when the event 'addToCart({{ $product->id }})' is loading --}} 
+                                            {{-- Adding the 'Adding...' -Button Name- when the event 'addToCart({{ $product->id }})' is loading --}}
                                             <span wire:loading wire:target='addToCart({{ $product->id }})'>Adding...</span>
                                         </a>
                                     </div>
@@ -165,7 +165,7 @@
                             </div>
                         @endforeach
                     </div>
-                    
+
                     <!-- pagination start -->
                     <div class="flex justify-end mt-6">
                         {{$products->links()}}
