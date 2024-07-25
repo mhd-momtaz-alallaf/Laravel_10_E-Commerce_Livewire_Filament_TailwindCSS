@@ -24,7 +24,7 @@
                             <div class="flex flex-wrap items-center mt-6">
                                 <span class="mr-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="w-4 h-4 text-gray-700 dark:text-gray-400 bi bi-truck" viewBox="0 0 16 16">
-                                        <path 
+                                        <path
                                             d="M0 3.5A1.5 1.5 0 0 1 1.5 2h9A1.5 1.5 0 0 1 12 3.5V5h1.02a1.5 1.5 0 0 1 1.17.563l1.481 1.85a1.5 1.5 0 0 1 .329.938V10.5a1.5 1.5 0 0 1-1.5 1.5H14a2 2 0 1 1-4 0H5a2 2 0 1 1-3.998-.085A1.5 1.5 0 0 1 0 10.5v-7zm1.294 7.456A1.999 1.999 0 0 1 4.732 11h5.536a2.01 2.01 0 0 1 .732-.732V3.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .294.456zM12 10a2 2 0 0 1 1.732 1h.768a.5.5 0 0 0 .5-.5V8.35a.5.5 0 0 0-.11-.312l-1.48-1.85A.5.5 0 0 0 13.02 6H12v4zm-9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm9 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z">
                                         </path>
                                     </svg>
@@ -56,7 +56,7 @@
 
                             {{-- Product Description --}}
                             <p class="max-w-md text-gray-700 dark:text-gray-400">
-                                {{ $product->description }}   
+                                {{ $product->description }}
                             </p>
                         </div>
 
@@ -74,14 +74,14 @@
 
                                 {{-- Quantity --}}
                                 <input  type="number" wire:model="quantity" readonly class="flex items-center w-full font-semibold text-center text-gray-700 placeholder-gray-700 bg-gray-300 outline-none dark:text-gray-400 dark:placeholder-gray-400 dark:bg-gray-900 focus:outline-none text-md hover:text-black" placeholder="1">
-                                
+
                                 {{-- Plus Button --}}
                                 <button wire:click="increaseQuantity" class="w-20 h-full text-gray-600 bg-gray-300 rounded-r outline-none cursor-pointer dark:hover:bg-gray-700 dark:text-gray-400 dark:bg-gray-900 hover:text-gray-700 hover:bg-gray-400">
                                     <span class="m-auto text-2xl font-thin">+</span>
                                 </button>
                             </div>
                         </div>
-                        
+
                         {{-- Add To Cart Button --}}
                         <div class="flex flex-wrap items-center gap-4">
                             {{-- creating a livewire (adding the product to the cart() event and associate it with the method addToCart() in the component class --}} {{-- we used .prevent to prevent the page from reloading after clicking the 'Add to Cart' button --}}
@@ -89,7 +89,7 @@
                                 {{-- Button Name will Temporally changing just after the user is pressed the add to cart button, the 'Add to Cart' will be temporally replaced with 'Adding...' as follow: --}}
                                 {{-- Removing the 'Add to Cart' -Button Name- when the event 'addToCart({{ $product->id }})' is loading --}}
                                 <span wire:loading.remove wire:target='addToCart({{ $product->id }})'>Add to Cart</span>
-                                {{-- Adding the 'Adding...' -Button Name- when the event 'addToCart({{ $product->id }})' is loading --}} 
+                                {{-- Adding the 'Adding...' -Button Name- when the event 'addToCart({{ $product->id }})' is loading --}}
                                 <span wire:loading wire:target='addToCart({{ $product->id }})'>Adding...</span>
                             </button>
                         </div>

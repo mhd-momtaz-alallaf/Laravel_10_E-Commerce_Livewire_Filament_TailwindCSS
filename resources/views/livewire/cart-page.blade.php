@@ -36,7 +36,7 @@
                                 </tr>
                             </thead>
                         @endif
-                        
+
                         <tbody>
                             @forelse ($cart_items as $item)
                                 <tr wire:key="{{ $item['product_id'] }}">
@@ -81,7 +81,7 @@
                                             {{-- Removing Loader, Button Name will Temporally changing just after the user is pressed the remove button, the 'Remove' will be temporally replaced with 'Removing...' as follow: --}}
                                             {{-- Removing the 'Remove' -Button Name- when the event 'removeItem({{ $item['product_id'] }})' is loading --}}
                                             <span wire:loading.remove wire:target='removeItem({{ $item['product_id'] }})'>Remove</span>
-                                            {{-- Adding the 'Removing...' -Button Name- when the event 'removeItem({{ $item['product_id'] }})' is loading --}} 
+                                            {{-- Adding the 'Removing...' -Button Name- when the event 'removeItem({{ $item['product_id'] }})' is loading --}}
                                             <span wire:loading wire:target='removeItem({{ $item['product_id'] }})'>Removing...</span>
                                         </button>
                                     </td>
@@ -135,7 +135,7 @@
 
                     {{-- Checkout Button will show only if there is some items in the cart --}}
                     @if ($cart_items)
-                        <a href="{{ route('checkout') }}" class="block text-center bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
+                        <a wire:navigate href="{{ route('checkout') }}" class="block text-center bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">
                             Checkout
                         </a>
                     @endif
