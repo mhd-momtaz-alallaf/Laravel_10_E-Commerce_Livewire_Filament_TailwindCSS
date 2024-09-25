@@ -40,14 +40,14 @@ class OrdersRelationManager extends RelationManager // // this OrdersRelationMan
 
                 TextColumn::make('status')
                     ->badge() // this will make the status showing as badge form.
-                    ->color(fn (string $state):string => match($state){
+                    ->color(fn(string $state): string => match ($state) {
                         'new' => 'info', // on the left database field, on the right the wanted filament colors.
-                        'processing'=> 'warning',
-                        'shipped'=> 'success',
-                        'delivered'=> 'success',
-                        'canceled'=> 'danger',
+                        'processing' => 'warning',
+                        'shipped' => 'success',
+                        'delivered' => 'success',
+                        'canceled' => 'danger',
                     })
-                    ->icon(fn (string $state):string => match($state){
+                    ->icon(fn(string $state): string => match ($state) {
                         'new' => 'heroicon-m-sparkles', // on the left database field, on the right the wanted icons.
                         'processing' => 'heroicon-m-arrow-path',
                         'shipped' => 'heroicon-m-truck',
@@ -77,7 +77,7 @@ class OrdersRelationManager extends RelationManager // // this OrdersRelationMan
             ])
             ->actions([
                 Action::make('View Order') // Creating a Custom Action to View the detailed Order of the User.
-                    ->url(fn (Order $order): string => OrderResource::getUrl('view', ['record' => $order])) // getting the OrderResource 'view' url of the passed $order.
+                    ->url(fn(Order $order): string => OrderResource::getUrl('view', ['record' => $order])) // getting the OrderResource 'view' url of the passed $order.
                     ->color('info') // changing the color to info.
                     ->icon('heroicon-o-eye'), // changing the icon to 'eye'.
 

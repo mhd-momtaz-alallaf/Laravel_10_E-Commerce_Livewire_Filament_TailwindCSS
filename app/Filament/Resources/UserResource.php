@@ -37,15 +37,15 @@ class UserResource extends Resource
                     ->maxLength(255)
                     ->unique(ignoreRecord: true)
                     ->required(),
-                
+
                 Forms\Components\DatePicker::make('email_verified_at') // making the email_verified_at field.
                     ->label('Email Verified At')
                     ->default(now()),
-                
+
                 Forms\Components\TextInput::make('password') // making the password field.
                     ->password()
-                    ->dehydrated(fn ($state) => filled($state))
-                    ->required(fn (Page $livewire): bool => $livewire instanceof CreateRecord), // to make this field required only in create user page.
+                    ->dehydrated(fn($state) => filled($state))
+                    ->required(fn(Page $livewire): bool => $livewire instanceof CreateRecord), // to make this field required only in create user page.
             ]);
     }
 

@@ -29,14 +29,14 @@ class CheckoutPage extends Component
     {
         $cart_items = CartManagement::getCartItemsFromCookie();
 
-        if(count($cart_items) == 0){
+        if (count($cart_items) == 0) {
             return redirect(route('products')); // redirecting the user to the products page if the cart is empty, so the user can't access the checkout page if its empty.
         }
     }
 
     public function placeOrder() // Storing the User Order into the database.
     {
-        $this->validate([ // validating the form data. 
+        $this->validate([ // validating the form data.
             'first_name' => 'required',
             'last_name' => 'required',
             'phone' => 'required',
@@ -51,7 +51,7 @@ class CheckoutPage extends Component
 
         $line_items = [];
 
-        foreach($cart_items as $item) // getting the price information of each item in the cart.
+        foreach ($cart_items as $item) // getting the price information of each item in the cart.
         {
             $line_items[] = [
                 'price_data' => [
@@ -66,7 +66,7 @@ class CheckoutPage extends Component
         }
 
         // creating a new Order instance then assigning all the Order required fields.
-        $order = new Order(); 
+        $order = new Order();
 
         $order->user_id = auth()->user()->id;
         $order->grand_total = CartManagement::calculateCartItemsGrandTotal($cart_items);
@@ -79,7 +79,7 @@ class CheckoutPage extends Component
         $order->notes = 'Order Placed by ' . auth()->user()->name;
 
         // creating a new Address model instance and assigning all the Address required fields.
-        $address = new Address(); 
+        $address = new Address();
 
         $address->first_name = $this->first_name;
         $address->last_name = $this->last_name;
@@ -87,12 +87,12 @@ class CheckoutPage extends Component
         $address->street_address = $this->street_address;
         $address->city = $this->city;
         $address->state = $this->state;
-        $address->zip_code = $this->zip_code; 
+        $address->zip_code = $this->zip_code;
 
         $redirect_url = '';
 
         // Stripe Payment process
-        if($this->payment_method == 'stripe'){
+        if ($this->payment_method == 'stripe') {
             Stripe::setApiKey(env('STRIPE_SECRET'));
             $sessionCheckout = Session::create([
                 'payment_method_types' => ['card'],
@@ -104,7 +104,7 @@ class CheckoutPage extends Component
             ]);
 
             $redirect_url = $sessionCheckout->url;
-        } else{
+        } else {
             // if the payment method is 'Cash on delivery' just redirect the user to the success page.
             $redirect_url = route('success');
         }
@@ -117,13 +117,13 @@ class CheckoutPage extends Component
         $address->save();
 
         // Associating the $order with the OrderItems Model by the items() relation
-        $order->items()->createMany($cart_items); 
+        $order->items()->createMany($cart_items);
 
         // Clearing the Cart items after the payment process is completed.
         CartManagement::clearCartItemsFromCookie();
 
         // Sending a success OrderPlaced Email to the user after the payment process is completed.
-        Mail::to(request()->user())->send(new OrderPlaced($order));
+        // Mail::to(request()->user())->send(mailable: new OrderPlaced($order));
 
         // Redirecting the user to the proper url.
         return redirect($redirect_url);

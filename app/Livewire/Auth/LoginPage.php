@@ -15,12 +15,12 @@ class LoginPage extends Component
     public function save() // logging the users in.
     {
         $this->validate([ // validating the credentials.
-            'email'=> 'required|email|max:255|exists:users,email',
-            'password'=> 'required|min:6|max:255',
+            'email' => 'required|email|max:255|exists:users,email',
+            'password' => 'required|min:6|max:255',
         ]);
 
-        if(!auth()->attempt(['email'=> $this->email, 'password' => $this->password])) { // storing a session error message if the user credentials is invalid. 
-            session()->flash('error','Invalid Credentials');
+        if (!auth()->attempt(['email' => $this->email, 'password' => $this->password])) { // storing a session error message if the user credentials is invalid.
+            session()->flash('error', 'Invalid Credentials');
             return;
         }
 

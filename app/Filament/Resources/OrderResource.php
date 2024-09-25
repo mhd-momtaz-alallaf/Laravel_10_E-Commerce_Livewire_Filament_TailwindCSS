@@ -104,13 +104,13 @@ class OrderResource extends Resource
                         Select::make('shipping_method')
                             ->options([
                                 'dhl' => 'Dhl', // on the left database field, on the right the text that will show in the form.
-                                'fedex' => 'Fedex', 
+                                'fedex' => 'Fedex',
                                 'usps' => 'USPS'
                             ]),
 
                         Textarea::make('notes')
                             ->columnSpanFull(), // to take the whole screen width.
-                    ])->columns(2), // to align each two fields together as 2 columns. 
+                    ])->columns(2), // to align each two fields together as 2 columns.
 
                     Section::make('Order Items')->schema([ // to associate the order with the orderItems Model
                         Repeater::make('items') //the Repeater is for select multiple products, the 'items' is the relation name in the Order Model.
@@ -125,10 +125,10 @@ class OrderResource extends Resource
                                     ->disableOptionsWhenSelectedInSiblingRepeaterItems() // we can't select the same product if its already selected.
                                     ->columnSpan(4)
                                     ->reactive()
-                                    ->afterStateUpdated(fn ($state, Set $set) => 
-                                        $set('unit_amount', Product::find($state) ?->price ?? 0)) // to set the unit_price automatically after selecting any product, so for the selected product we will find it and get the price or 0. 
-                                    ->afterStateUpdated(fn ($state, Set $set) => 
-                                        $set('total_amount', Product::find($state) ?->price ?? 0)), // to set the total_price automatically after selecting the quantity of the product, we will set it on two parts, the first part we will set the total_amount for the quantity 1 without any changing, the second part will be handled in the TextInput quantity.
+                                    ->afterStateUpdated(fn($state, Set $set) =>
+                                    $set('unit_amount', Product::find($state)?->price ?? 0)) // to set the unit_price automatically after selecting any product, so for the selected product we will find it and get the price or 0.
+                                    ->afterStateUpdated(fn($state, Set $set) =>
+                                    $set('total_amount', Product::find($state)?->price ?? 0)), // to set the total_price automatically after selecting the quantity of the product, we will set it on two parts, the first part we will set the total_amount for the quantity 1 without any changing, the second part will be handled in the TextInput quantity.
 
                                 TextInput::make('quantity')
                                     ->numeric()
@@ -137,8 +137,8 @@ class OrderResource extends Resource
                                     ->minValue(1)
                                     ->columnSpan(2)
                                     ->reactive()
-                                    ->afterStateUpdated(fn ($state, Set $set, Get $get) => 
-                                        $set('total_amount', $state * $get('unit_amount'))), // setting the total_amount automatically after the quantity is changed by multiply the unit_amount with the $state(quantity).
+                                    ->afterStateUpdated(fn($state, Set $set, Get $get) =>
+                                    $set('total_amount', $state * $get('unit_amount'))), // setting the total_amount automatically after the quantity is changed by multiply the unit_amount with the $state(quantity).
 
                                 TextInput::make('unit_amount')
                                     ->numeric()
@@ -155,24 +155,23 @@ class OrderResource extends Resource
                                     ->columnSpan(3),
                             ])->columns(12),
 
-                            Placeholder::make('grand_total_placeholder') // to show the grand total price of all the OrderItems.
-                                ->label('Grand Total')
-                                ->content(function (Set $set, Get $get)
-                                {
-                                    $total = 0;
-                                    if(! $repeaters = $get('items')){ // if there is no items in the repeater/s.
-                                        return $total; // return total 0.
-                                    }
-                                    foreach ($repeaters as $key => $repeater){
-                                        $total += $get("items.{$key}.total_amount");
-                                    }
+                        Placeholder::make('grand_total_placeholder') // to show the grand total price of all the OrderItems.
+                            ->label('Grand Total')
+                            ->content(function (Set $set, Get $get) {
+                                $total = 0;
+                                if (! $repeaters = $get('items')) { // if there is no items in the repeater/s.
+                                    return $total; // return total 0.
+                                }
+                                foreach ($repeaters as $key => $repeater) {
+                                    $total += $get("items.{$key}.total_amount");
+                                }
 
-                                    $set('grand_total', $total); // to set the grand_total field value and save it to the database.
-                                    return Number::currency($total,'USD'); // return the total value in 'USD' currency form.
-                                }),
+                                $set('grand_total', $total); // to set the grand_total field value and save it to the database.
+                                return Number::currency($total, 'USD'); // return the total value in 'USD' currency form.
+                            }),
 
-                            Hidden::make('grand_total') // this is a hidden field and it will not showing to the users, and to just preparing the 'grand_total' value to change in the 'grand_total_placeholder'.
-                                ->default(0),
+                        Hidden::make('grand_total') // this is a hidden field and it will not showing to the users, and to just preparing the 'grand_total' value to change in the 'grand_total_placeholder'.
+                            ->default(0),
                     ]),
                 ])->columnSpanFull(), // to take the whole screen width.
             ]);
@@ -187,24 +186,24 @@ class OrderResource extends Resource
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('grand_total') 
+                TextColumn::make('grand_total')
                     ->numeric()
                     ->sortable()
                     ->money('USD'),
 
-                TextColumn::make('payment_method') 
+                TextColumn::make('payment_method')
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('payment_status') 
+                TextColumn::make('payment_status')
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('currency') 
+                TextColumn::make('currency')
                     ->sortable()
                     ->searchable(),
 
-                TextColumn::make('shipping_method') 
+                TextColumn::make('shipping_method')
                     ->sortable()
                     ->searchable(),
 

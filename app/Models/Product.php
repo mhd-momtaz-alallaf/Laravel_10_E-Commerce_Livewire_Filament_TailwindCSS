@@ -26,7 +26,7 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'images'=> 'array' // because we use json type for the images in the migration.
+        'images' => 'array' // because we use json type for the images in the migration.
     ];
 
     public function category(): BelongsTo
